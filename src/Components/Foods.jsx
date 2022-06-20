@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import MyContext from '../Context/MyContext';
+import Categories from './Categories';
+import ItemCard from './ItemCard';
 
 function Foods() {
+  const { foodData, foodCategories } = useContext(MyContext);
+
   return (
-    <h2>Foods</h2>
+    <>
+      <Categories data={ foodCategories } />
+      <ItemCard data={ foodData } type="Meal" />
+    </>
   );
 }
 

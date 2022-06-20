@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './MyContext';
-import getFoodRecipes from '../Services/MealDB';
-import getDrinkRecipes from '../Services/CockTailDB';
+import { getFoodRecipes, getFoodCategories } from '../Services/MealDB';
+import { getDrinkRecipes, getDrinkCategories } from '../Services/CockTailDB';
 
 function Provider({ children }) {
   const [foodData, setFoodData] = useState([]);
   const [drinksData, setDrinksData] = useState([]);
+  const [foodCategories, setFoodCategory] = useState([]);
+  const [drinkCategories, setDrinkCategory] = useState([]);
 
-  const getDrinksData = async () => {
-    const result = await getDrinkRecipes();
-    setDrinksData(result);
+  const getData = async () => {
+    const foodArray = await getFoodRecipes();
+    const drinkArray = await getDrinkRecipes();
+    setFoodData(foodArray);
+    setDrinksData(drinkArray);
   };
 
-  const getFoodData = async () => {
-    const result = await getFoodRecipes();
-    setFoodData(result);
+  const getCategories = async () => {
+    const foodCategoryData = await getFoodCategories();
+    const drinkCategoryData = await getDrinkCategories();
+    setFoodCategory(foodCategoryData);
+    setDrinkCategory(drinkCategoryData);
   };
+
   useEffect(() => {
-    getFoodData();
-    getDrinksData();
+    getData();
+    getCategories();
   }, []);
 
   const context = {
     foodData,
     drinksData,
+    foodCategories,
+    drinkCategories,
   };
   return (
     <MyContext.Provider value={ context }>
