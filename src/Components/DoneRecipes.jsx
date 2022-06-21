@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import Header from './Header';
 
 function DoneRecipes() {
+  const { setHeaderTitle, setSearchHiden } = useContext(MyContext);
+  useEffect(() => {
+    setHeaderTitle('Done Recipes');
+    setSearchHiden(false);
+  }, []);
+
   return (
-    <h2>DoneRecipes</h2>
+    <Header />
   );
 }
 
