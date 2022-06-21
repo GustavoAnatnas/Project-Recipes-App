@@ -1,8 +1,13 @@
 import React from 'react';
+import FooterMenu from './FooterMenu';
 
 function Profile() {
   return (
-    <h2>Profile</h2>
+    <div>
+      <h2>Profile</h2>
+      <FooterMenu />
+    </div>
+
   );
 }
 

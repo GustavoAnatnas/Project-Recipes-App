@@ -1,13 +1,13 @@
 import React from 'react';
 import FooterMenu from './FooterMenu';
 
-function Drinks() {
+function NationalitiesFoods() {
   return (
     <div>
-      <h2>Drinks</h2>
+      <h2>NationalitiesFoods</h2>
       <FooterMenu />
     </div>
   );
 }
 
-export default Drinks;
+export default NationalitiesFoods;
