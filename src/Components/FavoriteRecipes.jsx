@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Header from './Header';
+import MyContext from '../Context/MyContext';
 
 function FavoriteRecipes() {
   const { setHeaderTitle, setSearchHiden } = useContext(MyContext);

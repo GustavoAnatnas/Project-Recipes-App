@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import FooterMenu from './FooterMenu';
 import Header from './Header';
+import MyContext from '../Context/MyContext';
 
 function NationalitiesFoods() {
   const { setHeaderTitle, setSearchHiden } = useContext(MyContext);

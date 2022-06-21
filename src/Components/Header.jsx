@@ -27,7 +27,7 @@ function Header() {
           />
         </button>
         <h2 data-testid="page-title">{headerTitle}</h2>
-        { !searchHiden
+        { searchHiden
       && (
         <button
           type="button"
