@@ -1,14 +1,13 @@
 import React from 'react';
 import FooterMenu from './FooterMenu';
 
-function Profile() {
+function ExploreFoods() {
   return (
     <div>
-      <h2>Profile</h2>
+      <h2>ExploreFoods</h2>
       <FooterMenu />
     </div>
-
   );
 }
 
-export default Profile;
+export default ExploreFoods;
