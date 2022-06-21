@@ -37,12 +37,10 @@ function Provider({ children }) {
     if (type === 'Meal') {
       const result = await getFoodByCategory(category);
       setFilteredData(result);
-      console.log(result);
     }
     if (type === 'Drink') {
       const result = await getDrinkByCategory(category);
       setFilteredData(result);
-      console.log(result);
     }
   };
 
