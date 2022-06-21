@@ -8,7 +8,7 @@ function Drinks() {
 
   return (
     <>
-      <Categories data={ drinkCategories } />
+      <Categories data={ drinkCategories } type="Drink" />
       <ItemCard data={ drinksData } type="Drink" />
     </>
   );

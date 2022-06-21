@@ -10,3 +10,9 @@ export const getFoodCategories = async () => {
   const result = await fetch(categoryEndPoint).then(((response) => response.json()));
   return result.meals;
 };
+
+export const getFoodByCategory = async (category) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  const result = await fetch(url).then((response) => response.json());
+  return result.meals;
+};

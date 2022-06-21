@@ -1,30 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from '../Css/TelaPrincipal.module.css';
+import MyContext from '../Context/MyContext';
 
 function ItemCard({ data, type }) {
+  const { filteredData } = useContext(MyContext);
   const recipeGap = 12;
-  const filteredItems = data.slice(0, recipeGap);
+  const filteredItems = (filteredData || data).slice(0, recipeGap);
 
   return (
     <section>
       { filteredItems.map((item, index) => (
-        <div
+        <Link
           key={ item[`id${type}`] }
-          data-testid={ `${index}-recipe-card` }
+          to={ (
+            type === 'Meal'
+              ? `/foods/${item[`id${type}`]}` : `/drinks/${item[`id${type}`]}`
+          ) }
         >
-          <img
-            src={ item[`str${type}Thumb`] }
-            alt={ item[`str${type}`] }
-            data-testid={ `${index}-card-img` }
-            className={ styled.thumb }
-          />
-          <h4
-            data-testid={ `${index}-card-name` }
+          <div
+            data-testid={ `${index}-recipe-card` }
           >
-            { item[`str${type}`] }
-          </h4>
-        </div>
+            <img
+              src={ item[`str${type}Thumb`] }
+              alt={ item[`str${type}`] }
+              data-testid={ `${index}-card-img` }
+              className={ styled.thumb }
+            />
+            <h4
+              data-testid={ `${index}-card-name` }
+            >
+              { item[`str${type}`] }
+            </h4>
+          </div>
+        </Link>
       ))}
     </section>
   );

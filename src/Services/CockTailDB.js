@@ -10,3 +10,9 @@ export const getDrinkCategories = async () => {
   const result = await fetch(categoryEndPoint).then(((response) => response.json()));
   return result.drinks;
 };
+
+export const getDrinkByCategory = async (category) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  const result = await fetch(url).then((response) => response.json());
+  return result.drinks;
+};
