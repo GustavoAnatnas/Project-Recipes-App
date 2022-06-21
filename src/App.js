@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Provider from './Context/Provider';
 import Login from './Components/Login';
 import Profile from './Components/Profile';
