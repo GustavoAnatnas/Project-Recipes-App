@@ -7,6 +7,8 @@ import getDrinkRecipes from '../Services/CockTailDB';
 function Provider({ children }) {
   const [foodData, setFoodData] = useState([]);
   const [drinksData, setDrinksData] = useState([]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const getDrinksData = async () => {
     const result = await getDrinkRecipes();
@@ -25,6 +27,10 @@ function Provider({ children }) {
   const context = {
     foodData,
     drinksData,
+    email,
+    password,
+    setEmail,
+    setPassword,
   };
   return (
     <MyContext.Provider value={ context }>
