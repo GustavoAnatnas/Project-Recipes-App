@@ -1,8 +1,13 @@
 import React from 'react';
+import FooterMenu from './FooterMenu';
 
 function Foods() {
   return (
-    <h2>Foods</h2>
+    <div>
+      <h2>Foods</h2>
+      <FooterMenu />
+    </div>
+
   );
 }
 

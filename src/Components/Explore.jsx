@@ -1,8 +1,12 @@
 import React from 'react';
+import FooterMenu from './FooterMenu';
 
 function Explore() {
   return (
-    <h2>Explore</h2>
+    <div>
+      <h2>Explore</h2>
+      <FooterMenu />
+    </div>
   );
 }
 
