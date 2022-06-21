@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import MyContext from '../Context/MyContext';
+import Categories from './Categories';
+import ItemCard from './ItemCard';
 import FooterMenu from './FooterMenu';
 
 function Drinks() {
+  const { drinksData, drinkCategories } = useContext(MyContext);
+
   return (
-    <div>
-      <h2>Drinks</h2>
+    <>
+      <Categories data={ drinkCategories } type="Drink" />
+      <ItemCard data={ drinksData } type="Drink" />
       <FooterMenu />
-    </div>
+    </>
   );
 }
 

@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import MyContext from '../Context/MyContext';
+import Categories from './Categories';
+import ItemCard from './ItemCard';
 import FooterMenu from './FooterMenu';
 
 function Foods() {
-  return (
-    <div>
-      <h2>Foods</h2>
-      <FooterMenu />
-    </div>
+  const { foodData, foodCategories } = useContext(MyContext);
 
+  return (
+    <>
+      <Categories data={ foodCategories } type="Meal" />
+      <ItemCard data={ foodData } type="Meal" />
+      <FooterMenu />
+    </>
   );
 }
 
