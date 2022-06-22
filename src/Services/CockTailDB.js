@@ -16,3 +16,10 @@ export const getDrinkByCategory = async (category) => {
   const result = await fetch(url).then((response) => response.json());
   return result.drinks;
 };
+
+// items procurados no campo de busca do header
+export const getSearchedDrinkRecipes = async (searchType, searchInput) => { // searchType: tipo de filtro; searchInput: palavra ou letra buscada
+  const link = `https://www.thecocktaildb.com/api/json/v1/1/${searchType}${searchInput}`;
+  const result = await fetch(link).then((response) => response.json());
+  return result.drinks;
+};
