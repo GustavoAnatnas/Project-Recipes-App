@@ -2,11 +2,24 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderPath from './helpers/RenderPath';
 
-const foodData = require('./mocks/food.json');
 const drinksData = require('./mocks/drinks.json');
-const ingredientReturn = require('./mocks/ingredientSearch.json');
-const firstLetterReturn = require('./mocks/firstLetterSearch.json');
-const nameSearch = require('./mocks/nameSearch.json');
+
+const fetchTimes = 3;
+const searchTopBtn = 'search-top-btn';
+const searchInputBar = 'search-input';
+
+beforeEach(() => {
+  jest.spyOn(global, 'fetch')
+    .mockImplementation(() => Promise.resolve({
+      status: 200,
+      ok: true,
+      json: () => Promise.resolve(drinksData),
+    }));
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('1-Testa a implementação da barra de busca', () => {
   it('Testa se a barra é renderizada com os elementos corretos', () => {
@@ -23,44 +36,56 @@ describe('1-Testa a implementação da barra de busca', () => {
 });
 
 describe('2-Testa o funcionamento da barra de busca', () => {
-  // beforeEach(() => {
-  //   renderPath('/drinks');
-  //   const searchHeaderBtn = screen.getByTestId('search-top-btn');
-  //   userEvent.click(searchHeaderBtn);
-  // });
   it('Testa a busca por ingredientes da barra de busca', () => {
     renderPath('/drinks');
-    const searchHeaderBtn = screen.getByTestId('search-top-btn');
-    userEvent.click(searchHeaderBtn);
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(ingredientReturn),
-    }));
+    userEvent.click(screen.getByTestId(searchTopBtn));
     const ingredientRadio = screen.getByLabelText(/Ingredient/i);
-    const searchInput = screen.getByTestId('search-input');
+    const searchInput = screen.getByTestId(searchInputBar);
     const searchButton = screen.getByRole('button', { name: 'Search' });
     userEvent.type(searchInput, 'water');
     userEvent.click(ingredientRadio);
     userEvent.click(searchButton);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(fetchTimes);
     expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=water');
-    // global.fetch.mockRestore();
   });
   it('Testa a busca por nome da barra de busca', () => {
     renderPath('/drinks');
-    const searchHeaderBtn = screen.getByTestId('search-top-btn');
-    userEvent.click(searchHeaderBtn);
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(drinksData),
-    }));
-    const ingredientRadio = screen.getByLabelText(/Ingredient/i);
-    const searchInput = screen.getByTestId('search-input');
+    userEvent.click(screen.getByTestId(searchTopBtn));
+    const nameRadio = screen.getByLabelText(/name/i);
+    const searchInput = screen.getByTestId(searchInputBar);
     const searchButton = screen.getByRole('button', { name: 'Search' });
     userEvent.type(searchInput, 'margarita');
-    userEvent.click(ingredientRadio);
+    userEvent.click(nameRadio);
     userEvent.click(searchButton);
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=margarita');
-    // global.fetch.mockClear();
+    expect(fetch).toHaveBeenCalledTimes(fetchTimes);
+    expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita');
+  });
+  it('Testa a busca por primeira letra da barra de busca', () => {
+    renderPath('/drinks');
+    userEvent.click(screen.getByTestId(searchTopBtn));
+    const firstLetterRadio = screen.getByLabelText(/first letter/i);
+    const searchInput = screen.getByTestId(searchInputBar);
+    const searchButton = screen.getByRole('button', { name: 'Search' });
+    userEvent.type(searchInput, 'b');
+    userEvent.click(firstLetterRadio);
+    userEvent.click(searchButton);
+    expect(fetch).toHaveBeenCalledTimes(fetchTimes);
+    expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=b');
   });
 });
-// describe('', () => {});
+
+describe('3-Testa se a busca por primeira letra funciona corretamente', () => {
+  it('Testa se a aplicação exibe um alerta quando mais de 1 primeira letra é digitada',
+    () => {
+      const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
+      renderPath('/drinks');
+      userEvent.click(screen.getByTestId(searchTopBtn));
+      const firstLetterRadio = screen.getByLabelText(/first letter/i);
+      const searchInput = screen.getByTestId(searchInputBar);
+      const searchButton = screen.getByRole('button', { name: 'Search' });
+      userEvent.type(searchInput, 'ba');
+      userEvent.click(firstLetterRadio);
+      userEvent.click(searchButton);
+      expect(alert).toHaveBeenCalledTimes(1);
+    });
+});

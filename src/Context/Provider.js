@@ -27,15 +27,15 @@ function Provider({ children }) {
   const [drinksFilteredBySearch, setDrinksFilteredBySearch] = useState([]); // bebidas buscadas pelo usuário
 
   const getData = async () => {
-    const foodArray = await getFoodRecipes();
     const drinkArray = await getDrinkRecipes();
+    const foodArray = await getFoodRecipes();
     setFoodData(foodArray);
     setDrinksData(drinkArray);
   };
 
   const getCategories = async () => {
-    const foodCategoryData = await getFoodCategories();
     const drinkCategoryData = await getDrinkCategories();
+    const foodCategoryData = await getFoodCategories();
     setFoodCategory(foodCategoryData);
     setDrinkCategory(drinkCategoryData);
   };
