@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import MyContext from '../Context/MyContext';
 
-function SearchBar() {
+function SearchBar({ foodOrDrink }) {
   // pegando informações do context
   const {
     searchValue, // valor digitado no campo de busca
     filterSearchedRecipes, // função que vai filtrar de acordo com os dados digitados no campo de busca
-    foodsFilteredBySearch, // dados retornados de acordo com os dados digitados no campo de busca
   } = useContext(MyContext);
 
   const [searchRad, setSearchRad] = useState(''); // qual radio foi escolhido
@@ -21,25 +21,18 @@ function SearchBar() {
       global.alert('Your search must have only 1 (one) character');
     }
     if (searchRad === 'Ingredient') {
-      filterSearchedRecipes('food', 'filter.php?i=', searchValue);
+      filterSearchedRecipes(foodOrDrink, 'filter.php?i=', searchValue);
     }
     if (searchRad === 'Name') {
-      filterSearchedRecipes('food', 'search.php?s=', searchValue);
+      filterSearchedRecipes(foodOrDrink, 'search.php?s=', searchValue);
     }
-    if (searchRad === 'First letter') { // first letter
-      filterSearchedRecipes('food', 'search.php?f=', searchValue);
+    if (searchRad === 'First letter') {
+      filterSearchedRecipes(foodOrDrink, 'search.php?f=', searchValue);
     }
   };
 
   return (
     <div>
-      {
-        foodsFilteredBySearch.length > 0
-          ? (
-            console.log(foodsFilteredBySearch)
-          )
-          : null
-      }
       <label htmlFor="searchRadio">
         <input
           type="radio"
@@ -80,5 +73,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  foodOrDrink: PropTypes.string.isRequired,
+};
 
 export default SearchBar;

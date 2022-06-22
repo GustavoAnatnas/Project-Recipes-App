@@ -17,7 +17,7 @@ function Foods() {
   return (
     <>
       <Header />
-      <SearchBar />
+      <SearchBar foodOrDrink="food" />
       <Categories data={ foodCategories } type="Meal" />
       <ItemCard data={ foodData } type="Meal" />
       <FooterMenu />
