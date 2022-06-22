@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
 import Categories from './Categories';
 import ItemCard from './ItemCard';
@@ -8,20 +9,33 @@ import SearchBar from './SearchBar';
 
 function Drinks() {
   const { drinksData, drinkCategories,
-    setHeaderTitle, setSearchHiden } = useContext(MyContext);
+    setHeaderTitle, setSearchHiden, drinksFilteredBySearch } = useContext(MyContext);
   useEffect(() => {
     setHeaderTitle('Drinks');
     setSearchHiden(true);
   }, []);
 
   return (
-    <>
-      <Header />
-      <SearchBar foodOrDrink="drink" />
-      <Categories data={ drinkCategories } type="Drink" />
-      <ItemCard data={ drinksData } type="Drink" />
-      <FooterMenu />
-    </>
+    drinksFilteredBySearch === null && (
+      global.alert('Sorry, we haven\'t found any recipes for these filters.')),
+    drinksFilteredBySearch && drinksFilteredBySearch.length === 1
+      ? <Redirect to={ `/drinks/${drinksFilteredBySearch[0].idDrink}` } />
+      : (
+        <>
+          <Header />
+          <SearchBar foodOrDrink="drink" />
+          <Categories data={ drinkCategories } type="Drink" />
+          {/* <ItemCard data={ drinksData } type="Drink" /> */}
+          <ItemCard
+            data={
+              drinksFilteredBySearch
+              && drinksFilteredBySearch.length > 0 ? drinksFilteredBySearch : drinksData
+            }
+            type="Drink"
+          />
+          <FooterMenu />
+        </>
+      )
   );
 }
 

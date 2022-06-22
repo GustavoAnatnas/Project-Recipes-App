@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
 import Categories from './Categories';
 import ItemCard from './ItemCard';
@@ -8,21 +9,37 @@ import SearchBar from './SearchBar';
 
 function Foods() {
   const { foodData, foodCategories,
-    setHeaderTitle, setSearchHiden } = useContext(MyContext);
+    setHeaderTitle, setSearchHiden, foodsFilteredBySearch } = useContext(MyContext);
   useEffect(() => {
     setHeaderTitle('Foods');
     setSearchHiden(true);
   }, []);
 
   return (
-    <>
-      <Header />
-      <SearchBar foodOrDrink="food" />
-      <Categories data={ foodCategories } type="Meal" />
-      <ItemCard data={ foodData } type="Meal" />
-      <FooterMenu />
-    </>
+    foodsFilteredBySearch === null && (
+      global.alert('Sorry, we haven\'t found any recipes for these filters.')),
+    foodsFilteredBySearch && foodsFilteredBySearch.length === 1
+      ? <Redirect to={ `/foods/${foodsFilteredBySearch[0].idMeal}` } />
+      : (
+        <>
+          <Header />
+          <SearchBar foodOrDrink="food" />
+          <Categories data={ foodCategories } type="Meal" />
+          {/* <ItemCard data={ foodData } type="Meal" /> */}
+          <ItemCard
+            data={
+              foodsFilteredBySearch
+              && foodsFilteredBySearch.length > 0 ? foodsFilteredBySearch : foodData
+            }
+            type="Meal"
+          />
+          <FooterMenu />
+        </>
+      )
   );
 }
 
 export default Foods;
+
+// Apam balik
+// 69 Special
