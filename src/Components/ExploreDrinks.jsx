@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import FooterMenu from './FooterMenu';
+import MyContext from '../Context/MyContext';
+import Header from './Header';
 
 function ExploreDrinks() {
+  const { setHeaderTitle, setSearchHiden } = useContext(MyContext);
+  useEffect(() => {
+    setHeaderTitle('Explore Drinks');
+    setSearchHiden(false);
+  }, []);
+
   return (
     <div>
-      <h2>ExploreDrinks</h2>
+      <Header />
       <FooterMenu />
     </div>
   );

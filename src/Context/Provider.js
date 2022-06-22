@@ -18,6 +18,9 @@ function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [filteredData, setFilteredData] = useState(null);
+  const [headerTitle, setHeaderTitle] = useState('');
+  const [searchHiden, setSearchHiden] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   const getData = async () => {
     const foodArray = await getFoodRecipes();
@@ -61,6 +64,12 @@ function Provider({ children }) {
     filterRecipes,
     filteredData,
     setFilteredData,
+    headerTitle,
+    setHeaderTitle,
+    searchHiden,
+    setSearchHiden,
+    searchValue,
+    setSearchValue,
   };
   return (
     <MyContext.Provider value={ context }>

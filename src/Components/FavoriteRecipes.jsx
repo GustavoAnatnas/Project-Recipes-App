@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import Header from './Header';
+import MyContext from '../Context/MyContext';
 
 function FavoriteRecipes() {
+  const { setHeaderTitle, setSearchHiden } = useContext(MyContext);
+  useEffect(() => {
+    setHeaderTitle('Favorite Recipes');
+    setSearchHiden(false);
+  }, []);
+
   return (
-    <h2>FavoriteRecipes</h2>
+    <Header />
   );
 }
 
