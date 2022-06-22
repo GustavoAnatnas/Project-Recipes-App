@@ -8,7 +8,7 @@ function Explore() {
   useEffect(() => {
     setHeaderTitle('Explore');
     setSearchHiden(false);
-  }, []);
+  }, [setHeaderTitle, setSearchHiden]);
 
   return (
     <div>

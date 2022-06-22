@@ -7,7 +7,7 @@ function FavoriteRecipes() {
   useEffect(() => {
     setHeaderTitle('Favorite Recipes');
     setSearchHiden(false);
-  }, []);
+  }, [setHeaderTitle, setSearchHiden]);
 
   return (
     <Header />

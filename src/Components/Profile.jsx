@@ -8,7 +8,7 @@ function Profile() {
   useEffect(() => {
     setHeaderTitle('Profile');
     setSearchHiden(false);
-  }, []);
+  }, [setHeaderTitle, setSearchHiden]);
 
   return (
     <div>
