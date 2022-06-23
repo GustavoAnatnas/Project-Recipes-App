@@ -9,7 +9,7 @@ function Profile({ history }) {
   const [userEmail, setUserEmail] = useState();
 
   const getUserEmail = () => {
-    const result = JSON.parse(localStorage.getItem('user'));
+    const result = localStorage.getItem('user');
     setUserEmail(result);
   };
 
