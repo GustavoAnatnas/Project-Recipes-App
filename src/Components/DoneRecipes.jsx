@@ -22,12 +22,11 @@ function DoneRecipes() {
     <div>
       <Header />
       <DoneRecipesFilter />
-      {/* {
+      {
         finishedRecipes
           ? <DoneRecipesCards finishedRecipes={ finishedRecipes } />
           : null
-      } */}
-      <DoneRecipesCards finishedRecipes={ finishedRecipes } />
+      }
     </div>
   );
 }
