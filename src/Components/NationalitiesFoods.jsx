@@ -8,7 +8,7 @@ function NationalitiesFoods() {
   useEffect(() => {
     setHeaderTitle('Explore Nationalities');
     setSearchHiden(true);
-  }, []);
+  }, [setHeaderTitle, setSearchHiden]);
 
   return (
     <div>
