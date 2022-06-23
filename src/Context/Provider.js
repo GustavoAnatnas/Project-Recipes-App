@@ -4,11 +4,13 @@ import MyContext from './MyContext';
 import { getFoodRecipes,
   getFoodCategories,
   getFoodByCategory,
+  getRandomFoodRecipes,
   getSearchedFoodRecipes } // buscando na API as comidas procuradas pelo usuário
 from '../Services/MealDB';
 import { getDrinkRecipes,
   getDrinkCategories,
   getDrinkByCategory,
+  getRandomDrinkRecipes,
   getSearchedDrinkRecipes } // buscando na API as bebidas procuradas pelo usuário
 from '../Services/CockTailDB';
 
@@ -25,6 +27,8 @@ function Provider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [foodsFilteredBySearch, setFoodsFilteredBySearch] = useState([]); // comidas buscadas pelo usuário
   const [drinksFilteredBySearch, setDrinksFilteredBySearch] = useState([]); // bebidas buscadas pelo usuário
+  const [randomFoodId, setRandomFoodId] = useState(0);
+  const [randomDrinkId, setRandomDrinkId] = useState(0);
 
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
@@ -62,6 +66,16 @@ function Provider({ children }) {
     }
   };
 
+  const getRandomId = async () => {
+    if (headerTitle === 'Explore Foods') {
+      const id = await getRandomFoodRecipes();
+      setRandomFoodId(id);
+    } else {
+      const id = await getRandomDrinkRecipes();
+      setRandomDrinkId(id);
+    }
+  };
+
   useEffect(() => {
     getData();
     getCategories();
@@ -88,6 +102,9 @@ function Provider({ children }) {
     filterSearchedRecipes, // método para filtrar receitas com base na busca do usuário
     foodsFilteredBySearch, // arr de comidas com base na busca do usuário
     drinksFilteredBySearch, // arr de bebidas com base na busca do usuário
+    getRandomId,
+    randomFoodId,
+    randomDrinkId,
   };
   return (
     <MyContext.Provider value={ context }>
