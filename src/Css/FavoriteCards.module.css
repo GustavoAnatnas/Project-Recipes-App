@@ -1,0 +1,15 @@
+.cardImg {
+  width: 25%;
+}
+
+.favButton {
+  width: 15%;
+}
+
+.shareButton {
+  width: 15%;
+}
+
+.copiedLink {
+  display: none;
+}
