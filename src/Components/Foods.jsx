@@ -13,7 +13,7 @@ function Foods() {
   useEffect(() => {
     setHeaderTitle('Foods');
     setSearchHiden(true);
-  }, []);
+  }, [setHeaderTitle, setSearchHiden]);
 
   return (
     foodsFilteredBySearch === null && (

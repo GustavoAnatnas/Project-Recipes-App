@@ -8,7 +8,7 @@ function ExploreFoods() {
   useEffect(() => {
     setHeaderTitle('Explore Foods');
     setSearchHiden(false);
-  }, []);
+  }, [setHeaderTitle, setSearchHiden]);
 
   return (
     <div>
