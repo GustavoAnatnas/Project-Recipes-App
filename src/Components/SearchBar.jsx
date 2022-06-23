@@ -33,30 +33,33 @@ function SearchBar({ foodOrDrink }) {
 
   return (
     <div>
-      <label htmlFor="searchRadio">
+      <label htmlFor="ingredientRadio">
         <input
           type="radio"
           name="searchRadio"
+          id="ingredientRadio"
           value="Ingredient"
           onChange={ handleRadioChange }
           data-testid="ingredient-search-radio"
         />
         Ingredient
       </label>
-      <label htmlFor="searchRadio">
+      <label htmlFor="nameRadio">
         <input
           type="radio"
           name="searchRadio"
+          id="nameRadio"
           value="Name"
           onChange={ handleRadioChange }
           data-testid="name-search-radio"
         />
         Name
       </label>
-      <label htmlFor="searchRadio">
+      <label htmlFor="firstLetterRadio">
         <input
           type="radio"
           name="searchRadio"
+          id="firstLetterRadio"
           value="First letter"
           onChange={ handleRadioChange }
           data-testid="first-letter-search-radio"

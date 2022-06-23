@@ -25,7 +25,6 @@ function Foods() {
           <Header />
           <SearchBar foodOrDrink="food" />
           <Categories data={ foodCategories } type="Meal" />
-          {/* <ItemCard data={ foodData } type="Meal" /> */}
           <ItemCard
             data={
               foodsFilteredBySearch
@@ -40,6 +39,3 @@ function Foods() {
 }
 
 export default Foods;
-
-// Apam balik
-// 69 Special

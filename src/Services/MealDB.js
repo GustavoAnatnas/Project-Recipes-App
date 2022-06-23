@@ -23,3 +23,10 @@ export const getSearchedFoodRecipes = async (searchType, searchInput) => { // se
   const result = await fetch(link).then((response) => response.json());
   return result.meals;
 };
+
+// Busca receita de comida aleatoriamente
+export const getRandomFoodRecipes = async () => {
+  const link = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const result = await fetch(link).then((response) => response.json());
+  return result.meals[0].idMeal;
+};
