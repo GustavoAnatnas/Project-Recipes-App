@@ -10,7 +10,7 @@ function Profile({ history }) {
 
   const getUserEmail = () => {
     const result = JSON.parse(localStorage.getItem('user'));
-    setUserEmail(result.email);
+    if (result) setUserEmail(result.email);
   };
 
   const onLogoutButtonClick = () => {
