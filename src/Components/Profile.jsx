@@ -9,8 +9,8 @@ function Profile({ history }) {
   const [userEmail, setUserEmail] = useState();
 
   const getUserEmail = () => {
-    const result = localStorage.getItem('user');
-    setUserEmail(result);
+    const result = JSON.parse(localStorage.getItem('user'));
+    setUserEmail(result.email);
   };
 
   const onLogoutButtonClick = () => {

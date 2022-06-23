@@ -19,7 +19,7 @@ function Login() {
   const handleClick = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', email);
+    localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/foods');
   };
 
