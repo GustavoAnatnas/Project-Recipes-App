@@ -23,3 +23,10 @@ export const getSearchedDrinkRecipes = async (searchType, searchInput) => { // s
   const result = await fetch(link).then((response) => response.json());
   return result.drinks;
 };
+
+// Busca receita de bebida aleatoriamente
+export const getRandomDrinkRecipes = async () => {
+  const link = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const result = await fetch(link).then((response) => response.json());
+  return result.drinks[0].idDrink;
+};
