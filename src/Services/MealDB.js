@@ -23,3 +23,9 @@ export const getSearchedFoodRecipes = async (searchType, searchInput) => { // se
   const result = await fetch(link).then((response) => response.json());
   return result.meals;
 };
+
+export const getFoodDetails = async (id) => {
+  const detailsEndPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const result = await fetch(detailsEndPoint).then((response) => response.json());
+  return result.meals;
+};

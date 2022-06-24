@@ -4,12 +4,14 @@ import MyContext from './MyContext';
 import { getFoodRecipes,
   getFoodCategories,
   getFoodByCategory,
-  getSearchedFoodRecipes } // buscando na API as comidas procuradas pelo usuário
+  getSearchedFoodRecipes,
+  getFoodDetails } // buscando na API as comidas procuradas pelo usuário
 from '../Services/MealDB';
 import { getDrinkRecipes,
   getDrinkCategories,
   getDrinkByCategory,
-  getSearchedDrinkRecipes } // buscando na API as bebidas procuradas pelo usuário
+  getSearchedDrinkRecipes,
+  getDrinkDetails } // buscando na API as bebidas procuradas pelo usuário
 from '../Services/CockTailDB';
 
 function Provider({ children }) {
@@ -25,6 +27,9 @@ function Provider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [foodsFilteredBySearch, setFoodsFilteredBySearch] = useState([]); // comidas buscadas pelo usuário
   const [drinksFilteredBySearch, setDrinksFilteredBySearch] = useState([]); // bebidas buscadas pelo usuário
+  const [foodDetails, setFoodDetails] = useState([]); // detalhes da comida buscada pelo usuário
+  const [drinkDetails, setDrinkDetails] = useState([]); // detalhes da bebida buscada pelo usuário
+  const [copied, setCopied] = useState(false);
 
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
@@ -62,6 +67,17 @@ function Provider({ children }) {
     }
   };
 
+  // const getDetails = async (foodOrDrink, id) => {
+  //   if (foodOrDrink === 'food') {
+  //     const result = await getFoodDetails(id);
+  //     setFoodDetails(result);
+  //   }
+  //   if (foodOrDrink === 'drink') {
+  //     const result = await getDrinkDetails(id);
+  //     setDrinkDetails(result);
+  //   }
+  // };
+
   useEffect(() => {
     getData();
     getCategories();
@@ -88,6 +104,14 @@ function Provider({ children }) {
     filterSearchedRecipes, // método para filtrar receitas com base na busca do usuário
     foodsFilteredBySearch, // arr de comidas com base na busca do usuário
     drinksFilteredBySearch, // arr de bebidas com base na busca do usuário
+    foodDetails,
+    drinkDetails,
+    copied,
+    setCopied,
+    setFoodDetails,
+    getFoodDetails,
+    setDrinkDetails,
+    getDrinkDetails,
   };
   return (
     <MyContext.Provider value={ context }>

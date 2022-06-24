@@ -23,3 +23,9 @@ export const getSearchedDrinkRecipes = async (searchType, searchInput) => { // s
   const result = await fetch(link).then((response) => response.json());
   return result.drinks;
 };
+
+export const getDrinkDetails = async (id) => {
+  const detailsEndPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const result = await fetch(detailsEndPoint).then((response) => response.json());
+  return result.drinks;
+};
