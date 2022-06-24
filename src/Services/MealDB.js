@@ -30,3 +30,15 @@ export const getRandomFoodRecipes = async () => {
   const result = await fetch(link).then((response) => response.json());
   return result.meals[0].idMeal;
 };
+
+export const getNationalities = async () => {
+  const nationalitiesEndPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const result = await fetch(nationalitiesEndPoint).then((response) => response.json());
+  return result.meals;
+};
+
+export const getByNationality = async (nationality) => {
+  const link = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationality}`;
+  const result = await fetch(link).then((response) => response.json());
+  return result.meals;
+};
