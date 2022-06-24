@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneDrinkCard({ item, index }) {
@@ -21,13 +20,13 @@ function DoneDrinkCard({ item, index }) {
         <h3 data-testid={ `${index}-horizontal-done-date` }>
           { item.doneDate }
         </h3>
-        <Link to="https://google.com">
+        <button type="button">
           <img
             src={ shareIcon }
             alt="shareImg"
             data-testid={ `${index}-horizontal-share-btn` }
           />
-        </Link>
+        </button>
         <div>
           {
             item.tags.map((itemTag, indexTag) => (
