@@ -7,6 +7,7 @@ function SearchBar({ foodOrDrink }) {
   const {
     searchValue, // valor digitado no campo de busca
     filterSearchedRecipes, // função que vai filtrar de acordo com os dados digitados no campo de busca
+    setFilterIngredientRecipes,
   } = useContext(MyContext);
 
   const [searchRad, setSearchRad] = useState(''); // qual radio foi escolhido
@@ -29,6 +30,7 @@ function SearchBar({ foodOrDrink }) {
     if (searchRad === 'First letter') {
       filterSearchedRecipes(foodOrDrink, 'search.php?f=', searchValue);
     }
+    setFilterIngredientRecipes([]);
   };
 
   return (

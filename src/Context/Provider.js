@@ -5,12 +5,16 @@ import { getFoodRecipes,
   getFoodCategories,
   getFoodByCategory,
   getRandomFoodRecipes,
+  getFoodIngredients,
+  getFoodByIngredient,
   getSearchedFoodRecipes } // buscando na API as comidas procuradas pelo usuário
 from '../Services/MealDB';
 import { getDrinkRecipes,
   getDrinkCategories,
   getDrinkByCategory,
   getRandomDrinkRecipes,
+  getDrinkIngredients,
+  getDrinkByIngredient,
   getSearchedDrinkRecipes } // buscando na API as bebidas procuradas pelo usuário
 from '../Services/CockTailDB';
 
@@ -29,6 +33,9 @@ function Provider({ children }) {
   const [drinksFilteredBySearch, setDrinksFilteredBySearch] = useState([]); // bebidas buscadas pelo usuário
   const [randomFoodId, setRandomFoodId] = useState(0);
   const [randomDrinkId, setRandomDrinkId] = useState(0);
+  const [foodIngredients, setFoodIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [filterIngredientRecipes, setFilterIngredientRecipes] = useState([]);
 
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
@@ -76,9 +83,29 @@ function Provider({ children }) {
     }
   };
 
+  const getIngredients = async () => {
+    const ingFoods = await getFoodIngredients();
+    setFoodIngredients(ingFoods);
+    const ingDrinks = await getDrinkIngredients();
+    setDrinkIngredients(ingDrinks);
+  };
+
+  const getFoodIngredientsRecipes = async (ingredient) => {
+    const recipes = await getFoodByIngredient(ingredient);
+    const MAX_NUMBER = 12;
+    setFilterIngredientRecipes(recipes.slice(0, MAX_NUMBER));
+  };
+
+  const getDrinkIngredientsRecipes = async (ingredient) => {
+    const recipes = await getDrinkByIngredient(ingredient);
+    const MAX_NUMBER = 12;
+    setFilterIngredientRecipes(recipes.slice(0, MAX_NUMBER));
+  };
+
   useEffect(() => {
     getData();
     getCategories();
+    getIngredients();
   }, []);
 
   const context = {
@@ -105,6 +132,12 @@ function Provider({ children }) {
     getRandomId,
     randomFoodId,
     randomDrinkId,
+    foodIngredients,
+    drinkIngredients,
+    filterIngredientRecipes,
+    getFoodIngredientsRecipes,
+    setFilterIngredientRecipes,
+    getDrinkIngredientsRecipes,
   };
   return (
     <MyContext.Provider value={ context }>
