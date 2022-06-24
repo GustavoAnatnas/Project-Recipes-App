@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneFoodCard({ item, index }) {
+  const [showMessage, setShowMessage] = useState(false);
+
+  const showMessageCopy = (id) => {
+    clipboardCopy(`http://localhost:3000/foods/${id}`);
+    setShowMessage(true);
+  };
+
   return (
     <div>
       <div key={ index }>
@@ -20,13 +28,20 @@ function DoneFoodCard({ item, index }) {
         <h3 data-testid={ `${index}-horizontal-done-date` }>
           { item.doneDate }
         </h3>
-        <button type="button">
+        <button onClick={ () => showMessageCopy(item.id) } id="shareButton" type="button">
           <img
             src={ shareIcon }
             alt="shareImg"
             data-testid={ `${index}-horizontal-share-btn` }
           />
         </button>
+        {
+          showMessage
+            ? (
+              <span>Link copied!</span>
+            )
+            : null
+        }
         <div>
           {
             item.tags.map((itemTag, indexTag) => (
