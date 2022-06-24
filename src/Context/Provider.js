@@ -5,13 +5,15 @@ import { getFoodRecipes,
   getFoodCategories,
   getFoodByCategory,
   getSearchedFoodRecipes,
-  getFoodDetails } // buscando na API as comidas procuradas pelo usuário
+  getFoodDetails, // buscando na API as comidas procuradas pelo usuário
+  getRandomFoodRecipes } // buscando na API as comidas procuradas pelo usuário
 from '../Services/MealDB';
 import { getDrinkRecipes,
   getDrinkCategories,
   getDrinkByCategory,
   getSearchedDrinkRecipes,
-  getDrinkDetails } // buscando na API as bebidas procuradas pelo usuário
+  getDrinkDetails, // buscando na API as bebidas procuradas pelo usuário
+  getRandomDrinkRecipes } // buscando na API as bebidas procuradas pelo usuário
 from '../Services/CockTailDB';
 
 function Provider({ children }) {
@@ -30,6 +32,8 @@ function Provider({ children }) {
   const [foodDetails, setFoodDetails] = useState([]); // detalhes da comida buscada pelo usuário
   const [drinkDetails, setDrinkDetails] = useState([]); // detalhes da bebida buscada pelo usuário
   const [copied, setCopied] = useState(false);
+  const [randomFoodId, setRandomFoodId] = useState(0);
+  const [randomDrinkId, setRandomDrinkId] = useState(0);
 
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
@@ -77,6 +81,15 @@ function Provider({ children }) {
   //     setDrinkDetails(result);
   //   }
   // };
+  const getRandomId = async () => {
+    if (headerTitle === 'Explore Foods') {
+      const id = await getRandomFoodRecipes();
+      setRandomFoodId(id);
+    } else {
+      const id = await getRandomDrinkRecipes();
+      setRandomDrinkId(id);
+    }
+  };
 
   useEffect(() => {
     getData();
@@ -112,6 +125,9 @@ function Provider({ children }) {
     getFoodDetails,
     setDrinkDetails,
     getDrinkDetails,
+    getRandomId,
+    randomFoodId,
+    randomDrinkId,
   };
   return (
     <MyContext.Provider value={ context }>
