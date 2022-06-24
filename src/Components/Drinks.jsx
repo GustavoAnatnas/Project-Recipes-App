@@ -13,7 +13,7 @@ function Drinks() {
   useEffect(() => {
     setHeaderTitle('Drinks');
     setSearchHiden(true);
-  }, []);
+  }, [setHeaderTitle, setSearchHiden]);
 
   return (
     drinksFilteredBySearch === null && (
@@ -25,7 +25,6 @@ function Drinks() {
           <Header />
           <SearchBar foodOrDrink="drink" />
           <Categories data={ drinkCategories } type="Drink" />
-          {/* <ItemCard data={ drinksData } type="Drink" /> */}
           <ItemCard
             data={
               drinksFilteredBySearch

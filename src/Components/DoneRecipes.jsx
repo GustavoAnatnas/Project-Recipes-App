@@ -21,6 +21,9 @@ function DoneRecipes() {
   useEffect(() => {
     setHeaderTitle('Done Recipes');
     setSearchHiden(false);
+  }, [setHeaderTitle, setSearchHiden]);
+
+  useEffect(() => {
     getFinishedRecipesFromStorage();
   }, []);
 
