@@ -7,9 +7,15 @@ import DoneRecipesCards from './DoneRecipesCards';
 function DoneRecipes() {
   const { setHeaderTitle, setSearchHiden } = useContext(MyContext);
   const [finishedRecipes, setFinishedRecipes] = useState([]);
+  const [finishedRecipeFilter, setFinishedRecipeFilter] = useState(''); // o filtro em si
 
   const getFinishedRecipesFromStorage = () => {
     setFinishedRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
+  };
+
+  const filterRecipes = (type) => {
+    const filteredRecipes = finishedRecipes.filter((recipe) => recipe.type === type);
+    setFinishedRecipes(filteredRecipes);
   };
 
   useEffect(() => {
@@ -18,10 +24,22 @@ function DoneRecipes() {
     getFinishedRecipesFromStorage();
   }, []);
 
+  useEffect(() => {
+    if (finishedRecipeFilter === 'food') {
+      filterRecipes('food');
+    }
+    if (finishedRecipeFilter === 'drink') {
+      filterRecipes('drink');
+    }
+    if (finishedRecipeFilter === 'all') {
+      getFinishedRecipesFromStorage();
+    }
+  }, [finishedRecipeFilter]);
+
   return (
     <div>
       <Header />
-      <DoneRecipesFilter />
+      <DoneRecipesFilter setFinishedRecipeFilter={ setFinishedRecipeFilter } />
       {
         finishedRecipes
           ? <DoneRecipesCards finishedRecipes={ finishedRecipes } />

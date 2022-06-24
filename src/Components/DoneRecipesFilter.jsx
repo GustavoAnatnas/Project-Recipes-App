@@ -1,31 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function DoneRecipesFilter() {
+function DoneRecipesFilter({ setFinishedRecipeFilter }) {
+  const handleClick = (type) => { // type: 'food', 'drink' ou 'all'
+    setFinishedRecipeFilter(type);
+  };
+
   return (
     <aside>
       <button
         type="button"
         data-testid="filter-by-all-btn"
-        // onClick={}
+        onClick={ () => handleClick('all') }
       >
         All
       </button>
       <button
         type="button"
         data-testid="filter-by-food-btn"
-        // onClick={}
+        onClick={ () => handleClick('food') }
       >
         Food
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
-        // onClick={}
+        onClick={ () => handleClick('drink') }
       >
         Drinks
       </button>
     </aside>
   );
 }
+
+DoneRecipesFilter.propTypes = {
+  setFinishedRecipeFilter: PropTypes.func.isRequired,
+};
 
 export default DoneRecipesFilter;

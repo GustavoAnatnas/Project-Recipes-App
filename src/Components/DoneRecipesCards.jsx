@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DoneFoodCard from './DoneFoodCard';
 import DoneDrinkCard from './DoneDrinkCard';
-// import { Link } from 'react-router-dom';
 
 function DoneRecipesCards({ finishedRecipes }) {
   return (

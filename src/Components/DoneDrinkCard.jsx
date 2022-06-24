@@ -1,22 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneDrinkCard({ item, index }) {
   return (
     <div>
       <div key={ index }>
-        <img
-          src={ item.image }
-          alt={ item.id }
-          data-testid={ `${index}-horizontal-image` }
-        />
+        <Link
+          to={ `/drinks/${item.id}` }
+        >
+          <img
+            src={ item.image }
+            alt={ item.id }
+            data-testid={ `${index}-horizontal-image` }
+          />
+        </Link>
         <h4 data-testid={ `${index}-horizontal-top-text` }>
           { `${item.category} - ${item.alcoholicOrNot}` }
         </h4>
-        <h3 data-testid={ `${index}-horizontal-name` }>
-          { item.name }
-        </h3>
+        <Link
+          to={ `/drinks/${item.id}` }
+        >
+          <h3 data-testid={ `${index}-horizontal-name` }>
+            { item.name }
+          </h3>
+        </Link>
         <h3 data-testid={ `${index}-horizontal-done-date` }>
           { item.doneDate }
         </h3>

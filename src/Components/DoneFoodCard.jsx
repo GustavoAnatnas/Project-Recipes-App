@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import styled from '../Css/TelaPrincipal.module.css';
 
 function DoneFoodCard({ item, index }) {
   const [showMessage, setShowMessage] = useState(false);
@@ -14,17 +16,26 @@ function DoneFoodCard({ item, index }) {
   return (
     <div>
       <div key={ index }>
-        <img
-          src={ item.image }
-          alt={ item.id }
-          data-testid={ `${index}-horizontal-image` }
-        />
+        <Link
+          to={ `/foods/${item.id}` }
+        >
+          <img
+            src={ item.image }
+            alt={ item.id }
+            data-testid={ `${index}-horizontal-image` }
+            className={ styled.thumb }
+          />
+        </Link>
         <h4 data-testid={ `${index}-horizontal-top-text` }>
           { `${item.nationality} - ${item.category}` }
         </h4>
-        <h3 data-testid={ `${index}-horizontal-name` }>
-          { item.name }
-        </h3>
+        <Link
+          to={ `/foods/${item.id}` }
+        >
+          <h3 data-testid={ `${index}-horizontal-name` }>
+            { item.name }
+          </h3>
+        </Link>
         <h3 data-testid={ `${index}-horizontal-done-date` }>
           { item.doneDate }
         </h3>
