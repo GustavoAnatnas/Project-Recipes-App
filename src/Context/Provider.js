@@ -34,6 +34,8 @@ function Provider({ children }) {
   const [copied, setCopied] = useState(false);
   const [randomFoodId, setRandomFoodId] = useState(0);
   const [randomDrinkId, setRandomDrinkId] = useState(0);
+  const [ingredients, setIngredients] = useState([]);
+  const [measure, setMeasure] = useState([]);
 
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
@@ -128,6 +130,10 @@ function Provider({ children }) {
     getRandomId,
     randomFoodId,
     randomDrinkId,
+    measure,
+    setMeasure,
+    ingredients,
+    setIngredients,
   };
   return (
     <MyContext.Provider value={ context }>
