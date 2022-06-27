@@ -5,15 +5,17 @@ import { getFoodRecipes,
   getFoodCategories,
   getFoodByCategory,
   getSearchedFoodRecipes,
-  getFoodDetails, // buscando na API as comidas procuradas pelo usuário
-  getRandomFoodRecipes } // buscando na API as comidas procuradas pelo usuário
+  getRandomFoodRecipes, // buscando na API as comidas procuradas pelo usuário
+  getFoodIngredients,
+  getFoodByIngredient } // buscando na API as comidas procuradas pelo usuário
 from '../Services/MealDB';
 import { getDrinkRecipes,
   getDrinkCategories,
   getDrinkByCategory,
   getSearchedDrinkRecipes,
-  getDrinkDetails, // buscando na API as bebidas procuradas pelo usuário
-  getRandomDrinkRecipes } // buscando na API as bebidas procuradas pelo usuário
+  getRandomDrinkRecipes,
+  getDrinkIngredients,
+  getDrinkByIngredient } // buscando na API as bebidas procuradas pelo usuário
 from '../Services/CockTailDB';
 
 function Provider({ children }) {
@@ -36,6 +38,9 @@ function Provider({ children }) {
   const [randomDrinkId, setRandomDrinkId] = useState(0);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
+  const [foodIngredients, setFoodIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [filterIngredientRecipes, setFilterIngredientRecipes] = useState([]);
 
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
@@ -73,16 +78,6 @@ function Provider({ children }) {
     }
   };
 
-  // const getDetails = async (foodOrDrink, id) => {
-  //   if (foodOrDrink === 'food') {
-  //     const result = await getFoodDetails(id);
-  //     setFoodDetails(result);
-  //   }
-  //   if (foodOrDrink === 'drink') {
-  //     const result = await getDrinkDetails(id);
-  //     setDrinkDetails(result);
-  //   }
-  // };
   const getRandomId = async () => {
     if (headerTitle === 'Explore Foods') {
       const id = await getRandomFoodRecipes();
@@ -93,9 +88,29 @@ function Provider({ children }) {
     }
   };
 
+  const getIngredients = async () => {
+    const ingFoods = await getFoodIngredients();
+    setFoodIngredients(ingFoods);
+    const ingDrinks = await getDrinkIngredients();
+    setDrinkIngredients(ingDrinks);
+  };
+
+  const getFoodIngredientsRecipes = async (ingredient) => {
+    const recipes = await getFoodByIngredient(ingredient);
+    const MAX_NUMBER = 12;
+    setFilterIngredientRecipes(recipes.slice(0, MAX_NUMBER));
+  };
+
+  const getDrinkIngredientsRecipes = async (ingredient) => {
+    const recipes = await getDrinkByIngredient(ingredient);
+    const MAX_NUMBER = 12;
+    setFilterIngredientRecipes(recipes.slice(0, MAX_NUMBER));
+  };
+
   useEffect(() => {
     getData();
     getCategories();
+    getIngredients();
   }, []);
 
   const context = {
@@ -124,9 +139,7 @@ function Provider({ children }) {
     copied,
     setCopied,
     setFoodDetails,
-    getFoodDetails,
     setDrinkDetails,
-    getDrinkDetails,
     getRandomId,
     randomFoodId,
     randomDrinkId,
@@ -134,6 +147,12 @@ function Provider({ children }) {
     setMeasure,
     ingredients,
     setIngredients,
+    foodIngredients,
+    drinkIngredients,
+    filterIngredientRecipes,
+    getFoodIngredientsRecipes,
+    setFilterIngredientRecipes,
+    getDrinkIngredientsRecipes,
   };
   return (
     <MyContext.Provider value={ context }>

@@ -59,8 +59,8 @@ function FoodDetails() {
 
   const copyText = async () => {
     await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-    // .then(() => console.log('Texto copiado com sucesso!'));
     setCopied(true);
+    // .then(() => console.log('Texto copiado com sucesso!'));
     // .catch((err) => console.error('Falha ao copiar o texto:', err));
     // setCopied(false);
   };

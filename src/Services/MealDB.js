@@ -24,14 +24,36 @@ export const getSearchedFoodRecipes = async (searchType, searchInput) => { // se
   return result.meals;
 };
 
-export const getFoodDetails = async (id) => {
-  const detailsEndPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const result = await fetch(detailsEndPoint).then((response) => response.json());
-  return result.meals;
-};
 // Busca receita de comida aleatoriamente
 export const getRandomFoodRecipes = async () => {
   const link = 'https://www.themealdb.com/api/json/v1/1/random.php';
   const result = await fetch(link).then((response) => response.json());
   return result.meals[0].idMeal;
+};
+
+export const getNationalities = async () => {
+  const nationalitiesEndPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const result = await fetch(nationalitiesEndPoint).then((response) => response.json());
+  return result.meals;
+};
+
+export const getByNationality = async (nationality) => {
+  const link = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationality}`;
+  const result = await fetch(link).then((response) => response.json());
+  return result.meals;
+};
+
+// Busca ingredientes
+export const getFoodIngredients = async () => {
+  const link = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const result = await fetch(link).then((response) => response.json());
+  const MAX_NUMBER = 12;
+  return result.meals.slice(0, MAX_NUMBER);
+};
+
+// Busca receitas por ingrediente
+export const getFoodByIngredient = async (ingredient) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  const result = await fetch(url).then((response) => response.json());
+  return result.meals;
 };

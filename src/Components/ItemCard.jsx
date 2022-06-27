@@ -8,7 +8,6 @@ function ItemCard({ data, type }) {
   const { filteredData } = useContext(MyContext);
   const recipeGap = 12;
   const filteredItems = (filteredData || data).slice(0, recipeGap);
-
   return (
     <section>
       { filteredItems.map((item, index) => (
