@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import noHeart from '../images/whiteHeartIcon.svg';
 import heart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
-// import RecipeDetails from './RecipeDetalis';
 
 function DrinkDetails() {
   const {
@@ -16,12 +15,17 @@ function DrinkDetails() {
     ingredients,
     setMeasure,
     measure,
+    favorite,
+    setFavorite,
   } = useContext(MyContext);
-
-  const [favorite, setFavorite] = useState(false);
 
   const history = useHistory();
   const { location: { pathname } } = history;
+
+  const getFromLocalStorage = () => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    return favoriteRecipes ? JSON.parse(favoriteRecipes) : '';
+  };
 
   useEffect(() => {
     const getDetails = async () => {
@@ -31,6 +35,16 @@ function DrinkDetails() {
       setDrinkDetails(result.drinks[0]);
     };
     getDetails();
+    const checkIfIsFavorite = () => {
+      const getFromLocalStorag = getFromLocalStorage();
+      console.log(getFromLocalStorag);
+      if (getFromLocalStorag) {
+        const isFavorite = getFromLocalStorag
+          .some((recipe) => recipe.id === pathname.split('/')[2]);
+        return isFavorite;
+      }
+    };
+    setFavorite(checkIfIsFavorite());
   }, []);
 
   useEffect(() => {
@@ -60,8 +74,20 @@ function DrinkDetails() {
     // setCopied(false);
   };
 
-  const favoriteFood = () => {
-    setFavorite((previous) => !previous);
+  const favoriteDrink = () => {
+    const obj = [
+      {
+        id: drinkDetails.idDrink,
+        type: 'drink',
+        nationality: '',
+        category: drinkDetails.strCategory,
+        alcoholicOrNot: drinkDetails.strAlcoholic,
+        name: drinkDetails.strDrink,
+        image: drinkDetails.strDrinkThumb,
+      },
+    ];
+    setFavorite(!favorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(obj));
   };
 
   return (
@@ -87,7 +113,7 @@ function DrinkDetails() {
             <img src={ shareIcon } alt="shareIcon" />
           </button>
           <button
-            onClick={ favoriteFood }
+            onClick={ favoriteDrink }
             type="button"
           >
             <img
@@ -118,13 +144,6 @@ function DrinkDetails() {
           <p data-testid="instructions">
             { drinkDetails.strInstructions }
           </p>
-          <h1>Video</h1>
-          <video
-            src={ drinkDetails.strVideo }
-            data-testid="video"
-          >
-            <track kind="captions" />
-          </video>
           <p data-testid="0-recomendation-card">Recommended</p>
           <Link to={ `/drinks/${drinkDetails.idDrink}/in-progress` }>
             <button

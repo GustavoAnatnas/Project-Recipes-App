@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
-// import { getFoodDetails } from '../Services/MealDB';
+
 import '../Css/FoodDetails.css';
 
 function FoodDetails() {
@@ -17,12 +17,17 @@ function FoodDetails() {
     ingredients,
     setMeasure,
     measure,
+    favorite,
+    setFavorite,
   } = useContext(MyContext);
-
-  const [favorite, setFavorite] = useState(false);
 
   const history = useHistory();
   const { location: { pathname } } = history;
+
+  const getFromLocalStorage = () => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    return favoriteRecipes ? JSON.parse(favoriteRecipes) : '';
+  };
 
   useEffect(() => {
     const getDetails = async () => {
@@ -32,6 +37,16 @@ function FoodDetails() {
       setFoodDetails(result.meals[0]);
     };
     getDetails();
+    const checkIfIsFavorite = () => {
+      const getFromLocalStorag = getFromLocalStorage();
+      console.log(getFromLocalStorag);
+      if (getFromLocalStorag) {
+        const isFavorite = getFromLocalStorag
+          .some((recipe) => recipe.id === pathname.split('/')[2]);
+        return isFavorite;
+      }
+    };
+    setFavorite(checkIfIsFavorite());
   }, []);
 
   useEffect(() => {
@@ -53,9 +68,21 @@ function FoodDetails() {
     setmeasure();
   }, [foodDetails, setIngredients, setMeasure]);
 
-  // const favoriteFood = () => {
-  //   setFavorite((previous) => !previous);
-  // };
+  const favoriteFood = () => {
+    const obj = [
+      {
+        id: foodDetails.idMeal,
+        type: 'food',
+        nationality: foodDetails.strArea,
+        category: foodDetails.strCategory,
+        alcoholicOrNot: '',
+        name: foodDetails.strMeal,
+        image: foodDetails.strMealThumb,
+      },
+    ];
+    setFavorite(!favorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(obj));
+  };
 
   const copyText = async () => {
     await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
@@ -88,7 +115,7 @@ function FoodDetails() {
             <img src={ shareIcon } alt="shareIcon" />
           </button>
           <button
-            onClick={ () => setFavorite(!favorite) }
+            onClick={ favoriteFood }
             type="button"
           >
             <img
@@ -111,7 +138,7 @@ function FoodDetails() {
           <p data-testid="instructions">
             { foodDetails.strInstructions }
           </p>
-          <h1>Video</h1>
+          <h2>Video</h2>
           <div className="video-responsive">
             <iframe
               data-testid="video"
