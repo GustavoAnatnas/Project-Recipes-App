@@ -1,47 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from '../Css/IngredientChecked.module.css';
 
-function IngredientsProgress({ data }) {
+function IngredientsProgress({ data, setBtnStatus, type }) {
   const { id } = useParams();
-  const history = useHistory();
-  const { pathname } = history.location;
-  const type = pathname.includes('foods') ? 'meals' : 'cocktails';
 
+  const local = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
   const [ingredientChecked, setIngredientChecked] = useState([]);
 
+  const ingredients = Object.values(Object.fromEntries(Object.entries(data)
+    .filter(([key, value]) => key.includes('strIngredient')
+&& value)));
+
   useEffect(() => {
-    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // console.log(local);
-    if (local !== null && (local[type]) !== undefined && local[type][id] !== undefined) {
+    if (ingredients.length === ingredientChecked.length) {
+      return setBtnStatus(false);
+    }
+    setBtnStatus(true);
+  }, [ingredients, local]);
+
+  useEffect(() => {
+    if (local !== null && (local[type]) !== undefined) {
       setIngredientChecked(local[type][id]);
     }
-    // (local[type][id] ? setIngredientChecked(local[type][id]) : '');
-
-    // setIngredientChecked(local[type][id]);
-    // console.log(type, id);
   }, []);
 
   const localChange = (name) => {
-    console.log(name);
-    console.log(data);
-    console.log(id);
-    console.log(pathname);
-    console.log(type);
-    // console.log(localStg);
-    // const localStg = JSON.parse(localStorage
-    //   .getItem('inProgressRecipes'))[type][id] || [];
-    // const names = [name];
     const newName = {
-      [type]: { [id]: [...ingredientChecked, name] } };
+      [type]: { [id]: [...ingredientChecked, name] },
+    };
+
+    if (ingredientChecked.includes(name)) {
+      const filterCheck = ingredientChecked.filter((ingr) => ingr !== name);
+      setIngredientChecked(filterCheck);
+      const newItems = {
+        [type]: { [id]: filterCheck },
+      };
+      return localStorage.setItem('inProgressRecipes', JSON.stringify(newItems));
+    }
 
     return localStorage.setItem('inProgressRecipes', JSON.stringify(newName));
-
-    // if (!local[type][id]) {
-    //   setInProgressItems([name]);
-    //   return localStorage.setItem('inProgressRecipes', JSON.stringify(newName));
-    // }
   };
 
   const saveIngredients = (name) => {
@@ -51,10 +50,6 @@ function IngredientsProgress({ data }) {
       setIngredientChecked([...ingredientChecked, name]);
     }
   };
-
-  const ingredients = Object.values(Object.fromEntries(Object.entries(data)
-    .filter(([key, value]) => key.includes('strIngredient')
-  && value)));
 
   const measures = Object.values(Object.fromEntries(Object.entries(data)
     .filter(([key, value]) => key.includes('strMeasure')
@@ -88,7 +83,9 @@ function IngredientsProgress({ data }) {
 }
 
 IngredientsProgress.propTypes = {
-  data: PropTypes.string,
+  data: PropTypes.arrayOf(),
+  setBtnStatus: PropTypes.func,
+  type: PropTypes.string,
 }.isRequired;
 
 export default IngredientsProgress;
