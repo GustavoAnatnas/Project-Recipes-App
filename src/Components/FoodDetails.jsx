@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -17,34 +17,28 @@ function FoodDetails() {
     ingredients,
     setMeasure,
     measure,
-    favorite,
-    setFavorite,
-    doneRecipes,
-    setDoneRecipes,
-    // startedRecipes,
-    // setStartedRecipes,
   } = useContext(MyContext);
+  const [favorite, setFavorite] = useState(false);
+  // const [startedRecipes, setStartedRecipes] = useState(false);
+  const [doneRecipes, setDoneRecipes] = useState(false);
 
   const history = useHistory();
   const { location: { pathname } } = history;
-  // const type = pathname.split('/')[1] === 'foods' ? 'meals' : 'cocktails';
 
-  const getFromLocalStorage = () => {
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-    return favoriteRecipes ? JSON.parse(favoriteRecipes) : '';
+  const getDataFromLocalStorage = (key) => {
+    const localData = localStorage.getItem(key);
+    return localData ? JSON.parse(localData) : '';
   };
 
   useEffect(() => {
     const getDetails = async () => {
       const detailsEndPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`;
-      console.log(detailsEndPoint);
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setFoodDetails(result.meals[0]);
     };
     getDetails();
     const checkIfIsFavorite = () => {
-      const getFromLocalStorag = getFromLocalStorage();
-      console.log(getFromLocalStorag);
+      const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
           .some((recipe) => recipe.id === pathname.split('/')[2]);
@@ -55,22 +49,22 @@ function FoodDetails() {
   }, []);
 
   useEffect(() => {
-    const getingredients = () => {
+    const filterIngredients = () => {
       const getIngredients = Object.entries(foodDetails)
         .filter((ingredientes) => ingredientes[0]
           .includes('strIngredient')).filter((ingredientes) => ingredientes[1] !== '')
         .map((ingredientes) => ingredientes[1]);
       return setIngredients(getIngredients);
     };
-    const setmeasure = () => {
+    const filterMeasure = () => {
       const getMeasure = Object.entries(foodDetails)
         .filter((measures) => measures[0]
           .includes('strMeasure')).filter((measures) => measures[1] !== '')
         .map((measures) => measures[1]);
       return setMeasure(getMeasure);
     };
-    getingredients();
-    setmeasure();
+    filterIngredients();
+    filterMeasure();
   }, [foodDetails, setIngredients, setMeasure]);
 
   const favoriteFood = () => {
@@ -92,26 +86,33 @@ function FoodDetails() {
   const copyText = async () => {
     await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
     setCopied(true);
-    // .then(() => console.log('Texto copiado com sucesso!'));
-    // .catch((err) => console.error('Falha ao copiar o texto:', err));
-    // setCopied(false);
   };
 
-  const getDoneFromLocal = () => {
-    const doneRecips = localStorage.getItem('doneRecipes');
-    return doneRecips ? JSON.parse(doneRecips) : '';
-  };
   useEffect(() => {
     const verifyIfIsDone = () => {
-      const getLocalDone = getDoneFromLocal();
-      console.log(getLocalDone);
-      const recipeIsDone = getLocalDone
-        .some((recipe) => recipe.id === foodDetails.idMeal);
-      console.log(recipeIsDone);
-      setDoneRecipes(recipeIsDone);
+      const getLocalDone = getDataFromLocalStorage('doneRecipes');
+      const doneRecipesIds = [];
+      if (getLocalDone !== '') {
+        getLocalDone.map((item) => doneRecipesIds.push(item.id));
+        setDoneRecipes(doneRecipesIds.includes(foodDetails.idMeal));
+      }
+      // const recipeIsDone = getLocalDone.filter(({ id }) => id === foodDetails.idMeal);
+      // console.log(recipeIsDone);
     };
     verifyIfIsDone();
   }, []);
+
+  // useEffect(() => {
+  //   const verifyIfIsInProgress = () => {
+  //     const getInProgress = getDataFromLocalStorage('inProgressRecipes');
+  //     // console.log(getInProgress);
+  //     const recipeIsInProgress = Object.keys(getInProgress.meals)
+  //       .includes(foodDetails.idMeal);
+  //     // console.log(recipeIsInProgress);
+  //     setStartedRecipes(recipeIsInProgress);
+  //   };
+  //   verifyIfIsInProgress();
+  // }, []);
 
   return (
     <div>
@@ -172,14 +173,14 @@ function FoodDetails() {
             />
           </div>
           <p data-testid="0-recomendation-card">Recommended</p>
-          { doneRecipes && (
+          { !doneRecipes && (
             <button
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
               onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
             >
-              Start Recipe
+              { startedRecipes ? 'Continue Recipe' : 'Start Recipe'}
             </button>
           )}
         </div>
