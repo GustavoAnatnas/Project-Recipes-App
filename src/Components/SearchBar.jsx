@@ -7,6 +7,7 @@ function SearchBar({ foodOrDrink }) {
   const {
     searchValue, // valor digitado no campo de busca
     filterSearchedRecipes, // função que vai filtrar de acordo com os dados digitados no campo de busca
+    setFilterIngredientRecipes,
   } = useContext(MyContext);
 
   const [searchRad, setSearchRad] = useState(''); // qual radio foi escolhido
@@ -29,34 +30,38 @@ function SearchBar({ foodOrDrink }) {
     if (searchRad === 'First letter') {
       filterSearchedRecipes(foodOrDrink, 'search.php?f=', searchValue);
     }
+    setFilterIngredientRecipes([]);
   };
 
   return (
     <div>
-      <label htmlFor="searchRadio">
+      <label htmlFor="ingredientRadio">
         <input
           type="radio"
           name="searchRadio"
+          id="ingredientRadio"
           value="Ingredient"
           onChange={ handleRadioChange }
           data-testid="ingredient-search-radio"
         />
         Ingredient
       </label>
-      <label htmlFor="searchRadio">
+      <label htmlFor="nameRadio">
         <input
           type="radio"
           name="searchRadio"
+          id="nameRadio"
           value="Name"
           onChange={ handleRadioChange }
           data-testid="name-search-radio"
         />
         Name
       </label>
-      <label htmlFor="searchRadio">
+      <label htmlFor="firstLetterRadio">
         <input
           type="radio"
           name="searchRadio"
+          id="firstLetterRadio"
           value="First letter"
           onChange={ handleRadioChange }
           data-testid="first-letter-search-radio"

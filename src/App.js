@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Provider from './Context/Provider';
 import Login from './Components/Login';
 import Profile from './Components/Profile';
@@ -18,6 +18,7 @@ import FoodDetails from './Components/FoodDetails';
 import DrinkDetails from './Components/DrinkDetails';
 import FoodsInProgress from './Components/FoodsInProgress';
 import DrinksInProgress from './Components/DrinksInProgress';
+import NotFound from './Components/NotFound';
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ DoneRecipes } />
         <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/page-not-found" component={ NotFound } />
+        <Redirect from="*" to="/page-not-found" />
       </Switch>
     </Provider>
   );

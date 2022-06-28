@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
 import Categories from './Categories';
@@ -9,11 +9,24 @@ import SearchBar from './SearchBar';
 
 function Foods() {
   const { foodData, foodCategories,
-    setHeaderTitle, setSearchHiden, foodsFilteredBySearch } = useContext(MyContext);
+    setHeaderTitle, setSearchHiden,
+    foodsFilteredBySearch, filterIngredientRecipes } = useContext(MyContext);
+  const [foodCard, setFoodCard] = useState([]);
+
   useEffect(() => {
     setHeaderTitle('Foods');
     setSearchHiden(true);
-  }, []);
+    if (filterIngredientRecipes.length > 0) {
+      setFoodCard(filterIngredientRecipes);
+    } else if (foodsFilteredBySearch === null) {
+      setFoodCard(foodData);
+    } else if (foodsFilteredBySearch.length > 0) {
+      setFoodCard(foodsFilteredBySearch);
+    } else {
+      setFoodCard(foodData);
+    }
+  }, [setHeaderTitle, setSearchHiden,
+    filterIngredientRecipes, foodData, foodsFilteredBySearch]);
 
   return (
     foodsFilteredBySearch === null && (
@@ -25,12 +38,8 @@ function Foods() {
           <Header />
           <SearchBar foodOrDrink="food" />
           <Categories data={ foodCategories } type="Meal" />
-          {/* <ItemCard data={ foodData } type="Meal" /> */}
           <ItemCard
-            data={
-              foodsFilteredBySearch
-              && foodsFilteredBySearch.length > 0 ? foodsFilteredBySearch : foodData
-            }
+            data={ foodCard }
             type="Meal"
           />
           <FooterMenu />
@@ -40,6 +49,3 @@ function Foods() {
 }
 
 export default Foods;
-
-// Apam balik
-// 69 Special

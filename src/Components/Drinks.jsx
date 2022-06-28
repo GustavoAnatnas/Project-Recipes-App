@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
 import Categories from './Categories';
@@ -9,11 +9,23 @@ import SearchBar from './SearchBar';
 
 function Drinks() {
   const { drinksData, drinkCategories,
-    setHeaderTitle, setSearchHiden, drinksFilteredBySearch } = useContext(MyContext);
+    setHeaderTitle, setSearchHiden,
+    drinksFilteredBySearch, filterIngredientRecipes } = useContext(MyContext);
+  const [drinkCard, setDrinkCard] = useState([]);
   useEffect(() => {
     setHeaderTitle('Drinks');
     setSearchHiden(true);
-  }, []);
+    if (filterIngredientRecipes.length > 0) {
+      setDrinkCard(filterIngredientRecipes);
+    } else if (drinksFilteredBySearch === null) {
+      setDrinkCard(drinksData);
+    } else if (drinksFilteredBySearch.length > 0) {
+      setDrinkCard(drinksFilteredBySearch);
+    } else {
+      setDrinkCard(drinksData);
+    }
+  }, [setHeaderTitle, setSearchHiden,
+    filterIngredientRecipes, drinksFilteredBySearch, drinksData]);
 
   return (
     drinksFilteredBySearch === null && (
@@ -25,12 +37,8 @@ function Drinks() {
           <Header />
           <SearchBar foodOrDrink="drink" />
           <Categories data={ drinkCategories } type="Drink" />
-          {/* <ItemCard data={ drinksData } type="Drink" /> */}
           <ItemCard
-            data={
-              drinksFilteredBySearch
-              && drinksFilteredBySearch.length > 0 ? drinksFilteredBySearch : drinksData
-            }
+            data={ drinkCard }
             type="Drink"
           />
           <FooterMenu />
