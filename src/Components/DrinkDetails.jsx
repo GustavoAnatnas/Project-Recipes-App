@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import noHeart from '../images/whiteHeartIcon.svg';
 import heart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -17,6 +17,8 @@ function DrinkDetails() {
     measure,
     favorite,
     setFavorite,
+    doneRecipes,
+    setDoneRecipes,
   } = useContext(MyContext);
 
   const history = useHistory();
@@ -66,14 +68,6 @@ function DrinkDetails() {
     setmeasure();
   }, [drinkDetails, setIngredients, setMeasure]);
 
-  const copyText = async () => {
-    await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-    // .then(() => console.log('Texto copiado com sucesso!'));
-    setCopied(true);
-    // .catch((err) => console.error('Falha ao copiar o texto:', err));
-    // setCopied(false);
-  };
-
   const favoriteDrink = () => {
     const obj = [
       {
@@ -89,6 +83,30 @@ function DrinkDetails() {
     setFavorite(!favorite);
     localStorage.setItem('favoriteRecipes', JSON.stringify(obj));
   };
+
+  const copyText = async () => {
+    await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    // .then(() => console.log('Texto copiado com sucesso!'));
+    setCopied(true);
+    // .catch((err) => console.error('Falha ao copiar o texto:', err));
+    // setCopied(false);
+  };
+
+  const getDoneFromLocal = () => {
+    const doneRecips = localStorage.getItem('doneRecipes');
+    return doneRecips ? JSON.parse(doneRecips) : '';
+  };
+  useEffect(() => {
+    const verifyIfIsDone = () => {
+      const getLocalDone = getDoneFromLocal();
+      console.log(getLocalDone);
+      const recipeIsDone = getLocalDone
+        .some((recipe) => recipe.id === drinkDetails.idDrink);
+      console.log(recipeIsDone);
+      setDoneRecipes(recipeIsDone);
+    };
+    verifyIfIsDone();
+  }, []);
 
   return (
     <div>
@@ -145,16 +163,18 @@ function DrinkDetails() {
             { drinkDetails.strInstructions }
           </p>
           <p data-testid="0-recomendation-card">Recommended</p>
-          <Link to={ `/drinks/${drinkDetails.idDrink}/in-progress` }>
+          {doneRecipes && (
             <button
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
+              onClick={ () => history
+                .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
             >
               Start Recipe
 
             </button>
-          </Link>
+          )}
         </div>
       )}
     </div>

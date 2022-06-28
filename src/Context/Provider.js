@@ -42,6 +42,8 @@ function Provider({ children }) {
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [filterIngredientRecipes, setFilterIngredientRecipes] = useState([]);
   const [favorite, setFavorite] = useState(false);
+  const [doneRecipes, setDoneRecipes] = useState(false);
+  const [startedRecipes, setStartedRecipes] = useState(false);
 
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
@@ -156,6 +158,10 @@ function Provider({ children }) {
     getDrinkIngredientsRecipes,
     favorite,
     setFavorite,
+    doneRecipes,
+    setDoneRecipes,
+    startedRecipes,
+    setStartedRecipes,
   };
   return (
     <MyContext.Provider value={ context }>

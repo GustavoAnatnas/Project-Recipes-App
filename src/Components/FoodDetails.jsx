@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -19,10 +19,15 @@ function FoodDetails() {
     measure,
     favorite,
     setFavorite,
+    doneRecipes,
+    setDoneRecipes,
+    // startedRecipes,
+    // setStartedRecipes,
   } = useContext(MyContext);
 
   const history = useHistory();
   const { location: { pathname } } = history;
+  // const type = pathname.split('/')[1] === 'foods' ? 'meals' : 'cocktails';
 
   const getFromLocalStorage = () => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes');
@@ -92,6 +97,22 @@ function FoodDetails() {
     // setCopied(false);
   };
 
+  const getDoneFromLocal = () => {
+    const doneRecips = localStorage.getItem('doneRecipes');
+    return doneRecips ? JSON.parse(doneRecips) : '';
+  };
+  useEffect(() => {
+    const verifyIfIsDone = () => {
+      const getLocalDone = getDoneFromLocal();
+      console.log(getLocalDone);
+      const recipeIsDone = getLocalDone
+        .some((recipe) => recipe.id === foodDetails.idMeal);
+      console.log(recipeIsDone);
+      setDoneRecipes(recipeIsDone);
+    };
+    verifyIfIsDone();
+  }, []);
+
   return (
     <div>
       {foodDetails && (
@@ -150,18 +171,17 @@ function FoodDetails() {
               frameBorder="0"
             />
           </div>
-          {/* <p>{ foodDetails.strYoutube.replace('watch?v=', 'embed/') }</p> */}
           <p data-testid="0-recomendation-card">Recommended</p>
-          <Link to={ `/foods/${foodDetails.idMeal}/in-progress` }>
+          { doneRecipes && (
             <button
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
+              onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
             >
               Start Recipe
-
             </button>
-          </Link>
+          )}
         </div>
       )}
     </div>
