@@ -5,6 +5,8 @@ import heart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
 
+import '../Css/Carousel.css';
+
 function DrinkDetails() {
   const {
     setDrinkDetails,
@@ -17,8 +19,9 @@ function DrinkDetails() {
     measure,
     favorite,
     setFavorite,
-    doneRecipes,
-    setDoneRecipes,
+    // doneRecipes,
+    // setDoneRecipes,
+    recomendedFoods,
   } = useContext(MyContext);
 
   const history = useHistory();
@@ -32,14 +35,12 @@ function DrinkDetails() {
   useEffect(() => {
     const getDetails = async () => {
       const detailsEndPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`;
-      console.log(detailsEndPoint);
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setDrinkDetails(result.drinks[0]);
     };
     getDetails();
     const checkIfIsFavorite = () => {
       const getFromLocalStorag = getFromLocalStorage();
-      console.log(getFromLocalStorag);
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
           .some((recipe) => recipe.id === pathname.split('/')[2]);
@@ -91,22 +92,6 @@ function DrinkDetails() {
     // .catch((err) => console.error('Falha ao copiar o texto:', err));
     // setCopied(false);
   };
-
-  const getDoneFromLocal = () => {
-    const doneRecips = localStorage.getItem('doneRecipes');
-    return doneRecips ? JSON.parse(doneRecips) : '';
-  };
-  useEffect(() => {
-    const verifyIfIsDone = () => {
-      const getLocalDone = getDoneFromLocal();
-      console.log(getLocalDone);
-      const recipeIsDone = getLocalDone
-        .some((recipe) => recipe.id === drinkDetails.idDrink);
-      console.log(recipeIsDone);
-      setDoneRecipes(recipeIsDone);
-    };
-    verifyIfIsDone();
-  }, []);
 
   return (
     <div>
@@ -162,19 +147,40 @@ function DrinkDetails() {
           <p data-testid="instructions">
             { drinkDetails.strInstructions }
           </p>
-          <p data-testid="0-recomendation-card">Recommended</p>
-          {doneRecipes && (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-recipe-btn"
-              onClick={ () => history
-                .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
-            >
-              Start Recipe
+          <div className="carousel">
+            {recomendedFoods && recomendedFoods.map((food, index) => (
+              <button
+                type="button"
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+                onClick={ () => history.push(`/foods/${food.idMeal}`) }
+              >
+                <img
+                  alt={ food.strMeal }
+                  src={ food.strMealThumb }
+                  width="50px"
+                />
+                <p>{food.strCategory}</p>
+                <h3
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  { food.strMeal }
+                </h3>
 
-            </button>
-          )}
+              </button>
+
+            ))}
+          </div>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+            onClick={ () => history
+              .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
+          >
+            Start Recipe
+
+          </button>
         </div>
       )}
     </div>

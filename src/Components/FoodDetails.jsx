@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
 
 import '../Css/FoodDetails.css';
+import '../Css/Carousel.css';
 
 function FoodDetails() {
   const {
@@ -17,10 +18,11 @@ function FoodDetails() {
     ingredients,
     setMeasure,
     measure,
+    recomendedDrinks,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
   // const [startedRecipes, setStartedRecipes] = useState(false);
-  const [doneRecipes, setDoneRecipes] = useState(false);
+  // const [doneRecipes, setDoneRecipes] = useState(false);
 
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -102,18 +104,6 @@ function FoodDetails() {
     verifyIfIsDone();
   }, []);
 
-  // useEffect(() => {
-  //   const verifyIfIsInProgress = () => {
-  //     const getInProgress = getDataFromLocalStorage('inProgressRecipes');
-  //     // console.log(getInProgress);
-  //     const recipeIsInProgress = Object.keys(getInProgress.meals)
-  //       .includes(foodDetails.idMeal);
-  //     // console.log(recipeIsInProgress);
-  //     setStartedRecipes(recipeIsInProgress);
-  //   };
-  //   verifyIfIsInProgress();
-  // }, []);
-
   return (
     <div>
       {foodDetails && (
@@ -172,17 +162,51 @@ function FoodDetails() {
               frameBorder="0"
             />
           </div>
-          <p data-testid="0-recomendation-card">Recommended</p>
-          { !doneRecipes && (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-recipe-btn"
-              onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
-            >
-              { startedRecipes ? 'Continue Recipe' : 'Start Recipe'}
-            </button>
-          )}
+          <div className="carousel">
+
+            {recomendedDrinks && recomendedDrinks.map((drink, index) => (
+              <button
+                type="button"
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+                onClick={ () => history.push(`/drinks/${drink.idDrink}`) }
+              >
+
+                <img
+                  alt={ drink.strDrink }
+                  src={ drink.strDrinkThumb }
+                  width="50px"
+                />
+
+                <p>
+                  {drink.strCategory}
+                  {' '}
+                  -
+                  {' '}
+                  { drink.strAlcoholic }
+                </p>
+                <p>
+                  {' '}
+
+                </p>
+                <h3
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  { drink.strDrink }
+                </h3>
+
+              </button>
+
+            ))}
+          </div>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+            onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
+          >
+            Start Recipe
+          </button>
         </div>
       )}
     </div>

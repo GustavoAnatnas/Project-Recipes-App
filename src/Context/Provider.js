@@ -44,7 +44,8 @@ function Provider({ children }) {
   const [favorite, setFavorite] = useState(false);
   const [doneRecipes, setDoneRecipes] = useState(false);
   const [startedRecipes, setStartedRecipes] = useState(false);
-
+  const [recomendedFoods, setRecomendedFoods] = useState([]);
+  const [recomendedDrinks, setRecomendedDrinks] = useState([]);
   const getData = async () => {
     const drinkArray = await getDrinkRecipes();
     const foodArray = await getFoodRecipes();
@@ -110,10 +111,27 @@ function Provider({ children }) {
     setFilterIngredientRecipes(recipes.slice(0, MAX_NUMBER));
   };
 
+  const foodEndPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const drinkEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const SIX = 6;
+  const getRecomendedFood = async () => {
+    const result = await fetch(foodEndPoint).then((response) => response.json());
+    setRecomendedFoods(result.meals.slice(0, SIX));
+    console.log(result.meals.slice(0, SIX));
+  };
+
+  const getRecomendedDrink = async () => {
+    const result = await fetch(drinkEndPoint).then((response) => response.json());
+    setRecomendedDrinks(result.drinks.slice(0, SIX));
+    console.log(result.drinks.slice(0, SIX));
+  };
+
   useEffect(() => {
     getData();
     getCategories();
     getIngredients();
+    getRecomendedFood();
+    getRecomendedDrink();
   }, []);
 
   const context = {
@@ -162,6 +180,10 @@ function Provider({ children }) {
     setDoneRecipes,
     startedRecipes,
     setStartedRecipes,
+    recomendedFoods,
+    setRecomendedFoods,
+    recomendedDrinks,
+    setRecomendedDrinks,
   };
   return (
     <MyContext.Provider value={ context }>
