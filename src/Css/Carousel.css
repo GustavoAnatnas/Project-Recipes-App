@@ -2,6 +2,7 @@
   display: flex;
   flex-flow: row nowrap;
   overflow-x: auto;
+  background-color: aqua;
 }
 
 .carousel > button {
