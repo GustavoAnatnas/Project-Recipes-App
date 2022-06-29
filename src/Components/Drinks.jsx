@@ -17,8 +17,6 @@ function Drinks() {
     setSearchHiden(true);
     if (filterIngredientRecipes.length > 0) {
       setDrinkCard(filterIngredientRecipes);
-    } else if (drinksFilteredBySearch === null) {
-      setDrinkCard(drinksData);
     } else if (drinksFilteredBySearch.length > 0) {
       setDrinkCard(drinksFilteredBySearch);
     } else {
