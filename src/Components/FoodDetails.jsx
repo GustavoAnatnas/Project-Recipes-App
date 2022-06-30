@@ -22,13 +22,9 @@ function FoodDetails() {
     verifyLocalStorage,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
-<<<<<<< HEAD
   // const [doneRecipes, setDoneRecipes] = useState(false);
   // const [startedRecipes, setStartedRecipes] = useState(false);
-=======
   const { id } = useParams();
->>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
-
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -43,11 +39,8 @@ function FoodDetails() {
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setFoodDetails(result.meals[0]);
     };
-<<<<<<< HEAD
     getDetails();
     const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
-=======
->>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
     const checkIfIsFavorite = () => {
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
@@ -100,31 +93,6 @@ function FoodDetails() {
     setCopied(true);
   };
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   const checkIfIsDone = () => {
-  //     const getDoneFromLocal = getDataFromLocalStorage('doneRecipes');
-  //     if (getDoneFromLocal) {
-  //       const isDone = getDoneFromLocal
-  //         .some((recipe) => recipe.id !== pathname.split('/')[2]);
-  //       return isDone;
-  //     }
-  //   };
-  //   setDoneRecipes(checkIfIsDone());
-
-  //   const checkIfIsInProgress = () => {
-  //     const getInProgressFromLocal = getDataFromLocalStorage('inProgressRecipes');
-  //     if (getInProgressFromLocal) {
-  //       const isInProgress = Object.keys(getInProgressFromLocal[type])
-  //         .some((recipe) => recipe === pathname.split('/')[2]);
-  //       return isInProgress;
-  //     }
-  //   };
-  //   setStartedRecipes(checkIfIsInProgress());
-  // }, []);
-
-=======
->>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
   return (
     <div>
       {foodDetails && (
@@ -219,19 +187,6 @@ function FoodDetails() {
 
             ))}
           </div>
-<<<<<<< HEAD
-          {/* {doneRecipes ? !doneRecipes : startedRecipes( */}
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="start-recipe-btn"
-            onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
-          >
-            Start Recipe
-          </button>
-          ,
-          {/* )} */}
-=======
           { !doneRecipes && (
             <button
               type="button"
@@ -242,7 +197,6 @@ function FoodDetails() {
               { startedRecipes ? 'Continue Recipe' : 'Start Recipe'}
             </button>
           )}
->>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
         </div>
       )}
     </div>
