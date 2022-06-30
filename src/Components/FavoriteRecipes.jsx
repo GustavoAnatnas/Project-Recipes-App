@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Header from './Header';
 import MyContext from '../Context/MyContext';
 import FavoriteCards from './FavoriteCards';
+import styles from '../Css/FavoriteRecipes.module.css';
 
 function FavoriteRecipes() {
   const { setHeaderTitle, setSearchHiden } = useContext(MyContext);
@@ -34,39 +35,43 @@ function FavoriteRecipes() {
   }, [setHeaderTitle, setSearchHiden]);
 
   return (
-    <>
+    <div>
       <Header />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => allFilterButton() }
-      >
-        All
-      </button>
+      <section>
+        <nav className={ styles.section }>
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ () => allFilterButton() }
+          >
+            All
+          </button>
 
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ () => foodFilterButton() }
-      >
-        Food
-      </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ () => foodFilterButton() }
+          >
+            Food
+          </button>
 
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => drinkFilterButton() }
-      >
-        Drinks
-      </button>
-      { favoritedRecipes
-        ? (
-          <FavoriteCards
-            data={ filteredFavorites || favoritedRecipes }
-            setNewData={ setFavoriteRecipes }
-          />)
-        : <h2> Sem receitas favoritas </h2>}
-    </>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => drinkFilterButton() }
+          >
+            Drinks
+          </button>
+        </nav>
+        { favoritedRecipes
+          ? (
+            <FavoriteCards
+              data={ filteredFavorites || favoritedRecipes }
+              setNewData={ setFavoriteRecipes }
+            />)
+          : <h2> Sem receitas favoritas </h2>}
+      </section>
+    </div>
   );
 }
 
