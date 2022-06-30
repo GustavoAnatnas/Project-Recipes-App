@@ -172,7 +172,7 @@ function DrinkDetails() {
           </div>
           { !doneRecipes && (
             <button
-              type="button"
+              type="submit"
               className="recipe-btn"
               onClick={ () => history
                 .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
