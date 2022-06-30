@@ -18,8 +18,6 @@ function Foods() {
     setSearchHiden(true);
     if (filterIngredientRecipes.length > 0) {
       setFoodCard(filterIngredientRecipes);
-    } else if (foodsFilteredBySearch === null) {
-      setFoodCard(foodData);
     } else if (foodsFilteredBySearch.length > 0) {
       setFoodCard(foodsFilteredBySearch);
     } else {
