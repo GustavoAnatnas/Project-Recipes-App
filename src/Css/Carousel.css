@@ -1,0 +1,32 @@
+.carousel {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+}
+
+.carousel > button {
+  max-height: 150px;
+  min-width: 200px;
+}
+
+/* .carousel > .carousel-content > .carousel-item {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.carousel > input:nth-child( 1 ):checked ~ .carousel-content {
+  transform: translateX(0%);
+}
+
+.carousel > input:nth-child( 2 ):checked ~ .carousel-content {
+  transform: translateX(-100%);
+}
+
+.carousel > input:nth-child( 3 ):checked ~ .carousel-content {
+  transform: translateX(-200%);
+}
+
+.carousel > input:nth-child( 4 ):checked ~ .carousel-content {
+  transform: translateX(-300%);
+} */
+
