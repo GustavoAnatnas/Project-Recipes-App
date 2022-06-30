@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
-
 import '../Css/FoodDetails.css';
-import '../Css/Carousel.css';
 
 function FoodDetails() {
   const {
@@ -19,10 +17,17 @@ function FoodDetails() {
     setMeasure,
     measure,
     recomendedDrinks,
+    doneRecipes,
+    startedRecipes,
+    verifyLocalStorage,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
+<<<<<<< HEAD
   // const [doneRecipes, setDoneRecipes] = useState(false);
   // const [startedRecipes, setStartedRecipes] = useState(false);
+=======
+  const { id } = useParams();
+>>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
 
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -38,8 +43,11 @@ function FoodDetails() {
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setFoodDetails(result.meals[0]);
     };
+<<<<<<< HEAD
     getDetails();
     const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
+=======
+>>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
     const checkIfIsFavorite = () => {
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
@@ -47,7 +55,9 @@ function FoodDetails() {
         return isFavorite;
       }
     };
+    getDetails();
     setFavorite(checkIfIsFavorite());
+    verifyLocalStorage(id, 'meals');
   }, []);
 
   useEffect(() => {
@@ -90,6 +100,7 @@ function FoodDetails() {
     setCopied(true);
   };
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   const checkIfIsDone = () => {
   //     const getDoneFromLocal = getDataFromLocalStorage('doneRecipes');
@@ -112,6 +123,8 @@ function FoodDetails() {
   //   setStartedRecipes(checkIfIsInProgress());
   // }, []);
 
+=======
+>>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
   return (
     <div>
       {foodDetails && (
@@ -171,7 +184,6 @@ function FoodDetails() {
             />
           </div>
           <div className="carousel">
-
             {recomendedDrinks && recomendedDrinks.map((drink, index) => (
               <button
                 type="button"
@@ -207,6 +219,7 @@ function FoodDetails() {
 
             ))}
           </div>
+<<<<<<< HEAD
           {/* {doneRecipes ? !doneRecipes : startedRecipes( */}
           <button
             type="button"
@@ -218,6 +231,18 @@ function FoodDetails() {
           </button>
           ,
           {/* )} */}
+=======
+          { !doneRecipes && (
+            <button
+              type="button"
+              className="recipe-btn"
+              onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
+              data-testid="start-recipe-btn"
+            >
+              { startedRecipes ? 'Continue Recipe' : 'Start Recipe'}
+            </button>
+          )}
+>>>>>>> fed573017a513b5d77234f0f8572da5a6a8bec0a
         </div>
       )}
     </div>

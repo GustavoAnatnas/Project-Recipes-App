@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import noHeart from '../images/whiteHeartIcon.svg';
 import heart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -17,19 +17,20 @@ function DrinkDetails() {
     ingredients,
     setMeasure,
     measure,
-    favorite,
-    setFavorite,
-    // doneRecipes,
-    // setDoneRecipes,
+    doneRecipes,
+    startedRecipes,
+    verifyLocalStorage,
     recomendedFoods,
   } = useContext(MyContext);
+  const [favorite, setFavorite] = useState(false);
+  const { id } = useParams;
 
   const history = useHistory();
   const { location: { pathname } } = history;
 
-  const getFromLocalStorage = () => {
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-    return favoriteRecipes ? JSON.parse(favoriteRecipes) : '';
+  const getDataFromLocalStorage = (key) => {
+    const localData = localStorage.getItem(key);
+    return localData ? JSON.parse(localData) : '';
   };
 
   useEffect(() => {
@@ -38,16 +39,17 @@ function DrinkDetails() {
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setDrinkDetails(result.drinks[0]);
     };
-    getDetails();
     const checkIfIsFavorite = () => {
-      const getFromLocalStorag = getFromLocalStorage();
+      const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
           .some((recipe) => recipe.id === pathname.split('/')[2]);
         return isFavorite;
       }
     };
+    getDetails();
     setFavorite(checkIfIsFavorite());
+    verifyLocalStorage(id, 'cocktails');
   }, []);
 
   useEffect(() => {
@@ -87,10 +89,7 @@ function DrinkDetails() {
 
   const copyText = async () => {
     await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-    // .then(() => console.log('Texto copiado com sucesso!'));
     setCopied(true);
-    // .catch((err) => console.error('Falha ao copiar o texto:', err));
-    // setCopied(false);
   };
 
   return (
@@ -171,16 +170,17 @@ function DrinkDetails() {
 
             ))}
           </div>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="start-recipe-btn"
-            onClick={ () => history
-              .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
-          >
-            Start Recipe
-
-          </button>
+          { !doneRecipes && (
+            <button
+              type="submit"
+              className="recipe-btn"
+              onClick={ () => history
+                .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
+              data-testid="start-recipe-btn"
+            >
+              { !startedRecipes ? 'Continue Recipe' : 'Start Recipe'}
+            </button>
+          )}
         </div>
       )}
     </div>

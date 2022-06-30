@@ -124,6 +124,19 @@ function Provider({ children }) {
     setRecomendedDrinks(result.drinks.slice(0, SIX));
   };
 
+  const verifyLocalStorage = async (id, type) => {
+    const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    if (getDoneRecipes !== null) {
+      setDoneRecipes(getDoneRecipes.some((item) => item.id === id));
+    }
+
+    const getInProgress = JSON.parse(localStorage
+      .getItem('inProgressRecipes')) || [];
+    if (getInProgress[type] !== undefined) {
+      setStartedRecipes(`${id}` in getInProgress[type]);
+    }
+  };
+
   useEffect(() => {
     getData();
     getCategories();
@@ -182,6 +195,7 @@ function Provider({ children }) {
     setRecomendedFoods,
     recomendedDrinks,
     setRecomendedDrinks,
+    verifyLocalStorage,
   };
   return (
     <MyContext.Provider value={ context }>
