@@ -4,7 +4,7 @@ import FooterMenu from './FooterMenu';
 import MyContext from '../Context/MyContext';
 import Header from './Header';
 
-import '../Css/ExploreDrinksFoods.css';
+import styles from '../Css/ExploreDrinksFoods.module.css';
 
 function ExploreDrinks() {
   const { setHeaderTitle, setSearchHiden,
@@ -19,7 +19,7 @@ function ExploreDrinks() {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className={ styles.container }>
         <button
           className="btn-explore-DF"
           data-testid="explore-by-ingredient"
@@ -29,7 +29,7 @@ function ExploreDrinks() {
           By Ingredient
         </button>
         <button
-          className="btn-explore-DF"
+          className={ styles.btnExploreDF }
           data-testid="explore-surprise"
           onClick={ () => history.push(`/drinks/${randomDrinkId}`) }
           type="button"

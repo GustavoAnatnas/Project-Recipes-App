@@ -4,7 +4,7 @@ import FooterMenu from './FooterMenu';
 import Header from './Header';
 import MyContext from '../Context/MyContext';
 
-import '../Css/Ingredients.css';
+import styles from '../Css/Ingredients.module.css';
 
 function IngredientsDrinks() {
   const { setHeaderTitle, setSearchHiden,
@@ -24,7 +24,7 @@ function IngredientsDrinks() {
   return (
     <>
       <Header />
-      <div className="ingredients-father">
+      <div className={ styles.ingredientsFather }>
         {drinkIngredients.map(({ strIngredient1 }, index) => (
           <button
             type="button"
@@ -32,7 +32,7 @@ function IngredientsDrinks() {
             name={ strIngredient1 }
             onClick={ () => handleclick(strIngredient1) }
             data-testid={ `${index}-ingredient-card` }
-            className="ingredients-card"
+            className={ styles.ingredientsCard }
           >
             <img
               src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }

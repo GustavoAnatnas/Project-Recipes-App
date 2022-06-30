@@ -117,13 +117,11 @@ function Provider({ children }) {
   const getRecomendedFood = async () => {
     const result = await fetch(foodEndPoint).then((response) => response.json());
     setRecomendedFoods(result.meals.slice(0, SIX));
-    console.log(result.meals.slice(0, SIX));
   };
 
   const getRecomendedDrink = async () => {
     const result = await fetch(drinkEndPoint).then((response) => response.json());
     setRecomendedDrinks(result.drinks.slice(0, SIX));
-    console.log(result.drinks.slice(0, SIX));
   };
 
   useEffect(() => {

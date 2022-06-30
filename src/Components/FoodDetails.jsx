@@ -21,8 +21,8 @@ function FoodDetails() {
     recomendedDrinks,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
-  // const [startedRecipes, setStartedRecipes] = useState(false);
   // const [doneRecipes, setDoneRecipes] = useState(false);
+  // const [startedRecipes, setStartedRecipes] = useState(false);
 
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -39,8 +39,8 @@ function FoodDetails() {
       setFoodDetails(result.meals[0]);
     };
     getDetails();
+    const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
     const checkIfIsFavorite = () => {
-      const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
           .some((recipe) => recipe.id === pathname.split('/')[2]);
@@ -90,19 +90,27 @@ function FoodDetails() {
     setCopied(true);
   };
 
-  useEffect(() => {
-    const verifyIfIsDone = () => {
-      const getLocalDone = getDataFromLocalStorage('doneRecipes');
-      const doneRecipesIds = [];
-      if (getLocalDone !== '') {
-        getLocalDone.map((item) => doneRecipesIds.push(item.id));
-        setDoneRecipes(doneRecipesIds.includes(foodDetails.idMeal));
-      }
-      // const recipeIsDone = getLocalDone.filter(({ id }) => id === foodDetails.idMeal);
-      // console.log(recipeIsDone);
-    };
-    verifyIfIsDone();
-  }, []);
+  // useEffect(() => {
+  //   const checkIfIsDone = () => {
+  //     const getDoneFromLocal = getDataFromLocalStorage('doneRecipes');
+  //     if (getDoneFromLocal) {
+  //       const isDone = getDoneFromLocal
+  //         .some((recipe) => recipe.id !== pathname.split('/')[2]);
+  //       return isDone;
+  //     }
+  //   };
+  //   setDoneRecipes(checkIfIsDone());
+
+  //   const checkIfIsInProgress = () => {
+  //     const getInProgressFromLocal = getDataFromLocalStorage('inProgressRecipes');
+  //     if (getInProgressFromLocal) {
+  //       const isInProgress = Object.keys(getInProgressFromLocal[type])
+  //         .some((recipe) => recipe === pathname.split('/')[2]);
+  //       return isInProgress;
+  //     }
+  //   };
+  //   setStartedRecipes(checkIfIsInProgress());
+  // }, []);
 
   return (
     <div>
@@ -199,6 +207,7 @@ function FoodDetails() {
 
             ))}
           </div>
+          {/* {doneRecipes ? !doneRecipes : startedRecipes( */}
           <button
             type="button"
             data-testid="start-recipe-btn"
@@ -207,6 +216,8 @@ function FoodDetails() {
           >
             Start Recipe
           </button>
+          ,
+          {/* )} */}
         </div>
       )}
     </div>

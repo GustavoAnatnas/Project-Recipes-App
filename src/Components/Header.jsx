@@ -4,7 +4,7 @@ import MyContext from '../Context/MyContext';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import InputSearch from './InputSearch';
-import '../Css/Header.css';
+import styles from '../Css/Header.module.css';
 
 function Header() {
   const { headerTitle, searchHiden } = useContext(MyContext);
@@ -15,10 +15,10 @@ function Header() {
   };
 
   return (
-    <div className="header">
+    <div className={ styles.header }>
       <header>
         <button
-          className="profile-icon"
+          className={ styles.profileIcon }
           type="button"
           onClick={ () => history.push('/profile') }
         >
@@ -34,7 +34,7 @@ function Header() {
         <button
           type="button"
           onClick={ searchClick }
-          className="search-icon"
+          className={ styles.searchIcon }
         >
           <img
             data-testid="search-top-btn"
