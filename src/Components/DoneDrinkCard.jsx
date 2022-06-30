@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import styles from '../Css/DoneRecipes.module.css';
 
 function DoneDrinkCard({ item, index }) {
   return (
     <div>
-      <div key={ index }>
+      <div
+        className={ styles.sectionFilter }
+        key={ index }
+      >
         <Link
           to={ `/drinks/${item.id}` }
         >

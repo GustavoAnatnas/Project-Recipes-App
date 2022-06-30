@@ -1,4 +1,5 @@
 .carousel {
+  background-color: aqua;
   display: flex;
   flex-flow: row nowrap;
   overflow-x: auto;

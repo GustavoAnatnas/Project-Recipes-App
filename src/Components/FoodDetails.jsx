@@ -22,8 +22,9 @@ function FoodDetails() {
     verifyLocalStorage,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
+  // const [doneRecipes, setDoneRecipes] = useState(false);
+  // const [startedRecipes, setStartedRecipes] = useState(false);
   const { id } = useParams();
-
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -38,8 +39,9 @@ function FoodDetails() {
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setFoodDetails(result.meals[0]);
     };
+    getDetails();
+    const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
     const checkIfIsFavorite = () => {
-      const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
           .some((recipe) => recipe.id === pathname.split('/')[2]);

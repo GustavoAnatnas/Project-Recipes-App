@@ -122,7 +122,6 @@ function Provider({ children }) {
   const getRecomendedDrink = async () => {
     const result = await fetch(drinkEndPoint).then((response) => response.json());
     setRecomendedDrinks(result.drinks.slice(0, SIX));
-    console.log(result.drinks.slice(0, SIX));
   };
 
   const verifyLocalStorage = async (id, type) => {
