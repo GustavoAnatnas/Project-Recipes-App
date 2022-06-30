@@ -122,7 +122,6 @@ function Provider({ children }) {
   const getRecomendedDrink = async () => {
     const result = await fetch(drinkEndPoint).then((response) => response.json());
     setRecomendedDrinks(result.drinks.slice(0, SIX));
-    // console.log(result.drinks.slice(0, SIX));
   };
 
   const verifyLocalStorage = async (id, type) => {
@@ -133,13 +132,8 @@ function Provider({ children }) {
 
     const getInProgress = JSON.parse(localStorage
       .getItem('inProgressRecipes')) || [];
-    if (type === 'cocktails') {
-      if (getInProgress.cocktails !== undefined) {
-        // console.log(id in getInProgress.cocktails);
-        setStartedRecipes(id in getInProgress.cocktails || false);
-      }
-    } else if (getInProgress[type] !== undefined) {
-      setStartedRecipes(`${id}` in getInProgress[type]);
+    if (getInProgress[type] !== undefined) {
+      setStartedRecipes(id in getInProgress[type]);
     }
   };
 

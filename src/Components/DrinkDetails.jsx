@@ -181,17 +181,6 @@ function DrinkDetails() {
               { startedRecipes ? 'Continue Recipe' : 'Start Recipe' }
             </button>
           )}
-          {/* { (startedRecipes || doneRecipes) && (
-            <button
-              type="button"
-              className="recipe-btn"
-              data-testid="start-recipe-btn"
-              onClick={ () => history
-                .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
-            >
-              Continue Recipe
-            </button>
-          )} */}
         </div>
       )}
     </div>
