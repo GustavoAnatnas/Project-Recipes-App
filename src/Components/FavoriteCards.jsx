@@ -45,13 +45,13 @@ function FavoriteCards({ data, setNewData }) {
           </Link>
         </div>
         <div className={ styles.sectionIcons }>
-          <h6 data-testid={ `${index}-horizontal-top-text` }>
+          <h5 data-testid={ `${index}-horizontal-top-text` }>
             {`${nationality} - ${category}`}
-          </h6>
+          </h5>
           <Link to={ `/${type}s/${id}` }>
-            <h5 data-testid={ `${index}-horizontal-name` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>
               { name }
-            </h5>
+            </h4>
           </Link>
           <div className={ styles.sectionBodyIcons }>
             <button
@@ -105,11 +105,11 @@ function FavoriteCards({ data, setNewData }) {
           </Link>
         </div>
         <div className={ styles.sectionIcons }>
-          <h6 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h6>
+          <h5 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h5>
           <Link to={ `/${type}s/${id}` }>
-            <h5 data-testid={ `${index}-horizontal-name` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>
               { name }
-            </h5>
+            </h4>
           </Link>
           <div className={ styles.sectionBodyIcons }>
             <button

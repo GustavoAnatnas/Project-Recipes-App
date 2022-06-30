@@ -18,8 +18,9 @@
   border-radius: 8px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   margin-left: 10px;
+  margin-top: 20px;
   width: 95%;
 }
 
@@ -30,4 +31,12 @@
 .sectionBodyIcons {
   display: flex;
   justify-content: space-around;
+}
+
+.sectionFilter:hover {
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.section button:hover {
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
 }

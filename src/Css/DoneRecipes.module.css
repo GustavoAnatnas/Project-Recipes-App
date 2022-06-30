@@ -18,6 +18,8 @@
   border: solid 1px #fda509;
   border-radius: 6px;
   font-size: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
   padding: 10px;
   width: 100px;
 }
@@ -30,17 +32,17 @@
   display: flex;
   margin-bottom: 12px;
   margin-left: 10px;
+  width: 95%;
 }
 
 .share {
   align-items: baseline;
-  background-color: white;
   display: flex;
   flex-basis: 50px;
   height: 30px;
   justify-content: space-between;
   padding-left: 5px;
-  width: 220px;
+  width: 215px;
 }
 
 .share h4 {
@@ -61,4 +63,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+}
+
+.sectionFilter:hover {
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
 }
