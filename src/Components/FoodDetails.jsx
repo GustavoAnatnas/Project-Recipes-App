@@ -23,8 +23,6 @@ function FoodDetails() {
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
   const { id } = useParams();
-  // const [startedRecipes, setStartedRecipes] = useState(false);
-  // const [doneRecipes, setDoneRecipes] = useState(false);
 
   const history = useHistory();
   const { location: { pathname } } = history;
