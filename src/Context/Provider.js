@@ -126,7 +126,7 @@ function Provider({ children }) {
   };
 
   const verifyLocalStorage = async (id, type) => {
-    const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     if (getDoneRecipes !== null) {
       setDoneRecipes(getDoneRecipes.some((item) => item.id === id));
     }
@@ -134,7 +134,7 @@ function Provider({ children }) {
     const getInProgress = JSON.parse(localStorage
       .getItem('inProgressRecipes')) || [];
     if (getInProgress[type] !== undefined) {
-      setStartedRecipes(`${id}` in getInProgress[type] || false);
+      setStartedRecipes(`${id}` in getInProgress[type]);
     }
   };
 

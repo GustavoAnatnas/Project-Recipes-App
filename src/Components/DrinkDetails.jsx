@@ -49,7 +49,7 @@ function DrinkDetails() {
     };
     getDetails();
     setFavorite(checkIfIsFavorite());
-    verifyLocalStorage(id, 'drinks');
+    verifyLocalStorage(id, 'cocktails');
   }, []);
 
   useEffect(() => {
