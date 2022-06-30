@@ -1,4 +1,4 @@
-.ingredients-father {
+.ingredientsFather {
   align-content: stretch;
   align-items: stretch;
   display: flex;
@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-.ingredients-card {
+.ingredientsCard {
   align-items: center;
   background-color: white;
   border: white solid 1px;

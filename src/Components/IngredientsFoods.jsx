@@ -4,7 +4,7 @@ import FooterMenu from './FooterMenu';
 import Header from './Header';
 import MyContext from '../Context/MyContext';
 
-import '../Css/Ingredients.css';
+import styles from '../Css/Ingredients.module.css';
 
 function IngredientsFoods() {
   const { setHeaderTitle, setSearchHiden,
@@ -24,7 +24,7 @@ function IngredientsFoods() {
   return (
     <>
       <Header />
-      <div className="ingredients-father">
+      <div className={ styles.ingredientsFather }>
         {foodIngredients.map(({ strIngredient }, index) => (
           <button
             type="button"
@@ -32,7 +32,7 @@ function IngredientsFoods() {
             name={ strIngredient }
             onClick={ () => handleclick(strIngredient) }
             data-testid={ `${index}-ingredient-card` }
-            className="ingredients-card"
+            className={ styles.ingredientsCard }
           >
             <img
               src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }

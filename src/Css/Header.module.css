@@ -1,6 +1,7 @@
 header {
+  align-items: center;
   background-color: #fda509;
-  color: #ffd489;
+  color: white;
   display: flex;
   justify-content: space-evenly;
 }
@@ -11,14 +12,14 @@ header {
   flex-direction: column;
 }
 
-.profile-icon {
+.profileIcon {
   background-color: #fda509;
   border: #fda509;
   border-radius: 50%;
   padding: 20px;
 }
 
-.search-icon {
+.searchIcon {
   background-color: #fda509;
   border: #fda509;
   border-radius: 50%;
