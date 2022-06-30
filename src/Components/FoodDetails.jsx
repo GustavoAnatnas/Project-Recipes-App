@@ -5,7 +5,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
 import '../Css/FoodDetails.css';
-import Carousel from './Carrousel';
 
 function FoodDetails() {
   const {
@@ -152,7 +151,42 @@ function FoodDetails() {
               frameBorder="0"
             />
           </div>
-          <Carousel data={ recomendedDrinks } />
+          <div className="carousel">
+            {recomendedDrinks && recomendedDrinks.map((drink, index) => (
+              <button
+                type="button"
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+                onClick={ () => history.push(`/drinks/${drink.idDrink}`) }
+              >
+
+                <img
+                  alt={ drink.strDrink }
+                  src={ drink.strDrinkThumb }
+                  width="50px"
+                />
+
+                <p>
+                  {drink.strCategory}
+                  {' '}
+                  -
+                  {' '}
+                  { drink.strAlcoholic }
+                </p>
+                <p>
+                  {' '}
+
+                </p>
+                <h3
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  { drink.strDrink }
+                </h3>
+
+              </button>
+
+            ))}
+          </div>
           { !doneRecipes && (
             <button
               type="button"
