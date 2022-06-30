@@ -122,18 +122,23 @@ function Provider({ children }) {
   const getRecomendedDrink = async () => {
     const result = await fetch(drinkEndPoint).then((response) => response.json());
     setRecomendedDrinks(result.drinks.slice(0, SIX));
-    console.log(result.drinks.slice(0, SIX));
+    // console.log(result.drinks.slice(0, SIX));
   };
 
   const verifyLocalStorage = async (id, type) => {
     const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    if (getDoneRecipes !== null) {
+    if (getDoneRecipes[0] !== undefined) {
       setDoneRecipes(getDoneRecipes.some((item) => item.id === id));
     }
 
     const getInProgress = JSON.parse(localStorage
       .getItem('inProgressRecipes')) || [];
-    if (getInProgress[type] !== undefined) {
+    if (type === 'cocktails') {
+      if (getInProgress.cocktails !== undefined) {
+        // console.log(id in getInProgress.cocktails);
+        setStartedRecipes(id in getInProgress.cocktails || false);
+      }
+    } else if (getInProgress[type] !== undefined) {
       setStartedRecipes(`${id}` in getInProgress[type]);
     }
   };

@@ -23,7 +23,7 @@ function DrinkDetails() {
     recomendedFoods,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
-  const { id } = useParams;
+  const { id } = useParams();
 
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -178,9 +178,20 @@ function DrinkDetails() {
                 .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
               data-testid="start-recipe-btn"
             >
-              { !startedRecipes ? 'Continue Recipe' : 'Start Recipe'}
+              { startedRecipes ? 'Continue Recipe' : 'Start Recipe' }
             </button>
           )}
+          {/* { (startedRecipes || doneRecipes) && (
+            <button
+              type="button"
+              className="recipe-btn"
+              data-testid="start-recipe-btn"
+              onClick={ () => history
+                .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
+            >
+              Continue Recipe
+            </button>
+          )} */}
         </div>
       )}
     </div>
