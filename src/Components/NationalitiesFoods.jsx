@@ -4,6 +4,7 @@ import Header from './Header';
 import MyContext from '../Context/MyContext';
 import { getNationalities, getByNationality } from '../Services/MealDB';
 import ItemCard from './ItemCard';
+import styles from '../Css/ExploreNationalities.module.css';
 
 function NationalitiesFoods() {
   const { setHeaderTitle, setSearchHiden, foodData } = useContext(MyContext);
@@ -29,6 +30,7 @@ function NationalitiesFoods() {
     <main>
       <Header />
       <select
+        className={ styles.select }
         onChange={ ({ target }) => filterByNationality(target.value) }
         data-testid="explore-by-nationality-dropdown"
       >
