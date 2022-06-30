@@ -1,0 +1,22 @@
+.ingredients-father {
+  align-content: stretch;
+  align-items: stretch;
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 102px;
+  width: 100%;
+}
+
+.ingredients-card {
+  align-items: center;
+  background-color: white;
+  border: white solid 1px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 1px 1px rgb(0 0 0 / 20%);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 40%;
+}

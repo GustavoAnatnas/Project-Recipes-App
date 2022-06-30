@@ -1,0 +1,27 @@
+header {
+  background-color: #fda509;
+  color: #ffd489;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header {
+  background-color: #fda509;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-icon {
+  background-color: #fda509;
+  border: #fda509;
+  border-radius: 50%;
+  padding: 20px;
+}
+
+.search-icon {
+  background-color: #fda509;
+  border: #fda509;
+  border-radius: 50%;
+  padding: 20px;
+}
+

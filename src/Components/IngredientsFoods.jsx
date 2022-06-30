@@ -4,6 +4,8 @@ import FooterMenu from './FooterMenu';
 import Header from './Header';
 import MyContext from '../Context/MyContext';
 
+import '../Css/Ingredients.css';
+
 function IngredientsFoods() {
   const { setHeaderTitle, setSearchHiden,
     foodIngredients, getFoodIngredientsRecipes } = useContext(MyContext);
@@ -20,30 +22,33 @@ function IngredientsFoods() {
   };
 
   return (
-    <div>
+    <>
       <Header />
-      {foodIngredients.map(({ strIngredient }, index) => (
-        <button
-          type="button"
-          key={ index }
-          name={ strIngredient }
-          onClick={ () => handleclick(strIngredient) }
-          data-testid={ `${index}-ingredient-card` }
-        >
-          <img
-            src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
-            alt={ strIngredient }
-            data-testid={ `${index}-card-img` }
-          />
-          <h3
-            data-testid={ `${index}-card-name` }
+      <div className="ingredients-father">
+        {foodIngredients.map(({ strIngredient }, index) => (
+          <button
+            type="button"
+            key={ index }
+            name={ strIngredient }
+            onClick={ () => handleclick(strIngredient) }
+            data-testid={ `${index}-ingredient-card` }
+            className="ingredients-card"
           >
-            {strIngredient}
-          </h3>
-        </button>
-      ))}
-      <FooterMenu />
-    </div>
+            <img
+              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+              alt={ strIngredient }
+              data-testid={ `${index}-card-img` }
+            />
+            <h3
+              data-testid={ `${index}-card-name` }
+            >
+              {strIngredient}
+            </h3>
+          </button>
+        ))}
+        <FooterMenu />
+      </div>
+    </>
   );
 }
 
