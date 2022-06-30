@@ -117,13 +117,25 @@ function Provider({ children }) {
   const getRecomendedFood = async () => {
     const result = await fetch(foodEndPoint).then((response) => response.json());
     setRecomendedFoods(result.meals.slice(0, SIX));
-    console.log(result.meals.slice(0, SIX));
   };
 
   const getRecomendedDrink = async () => {
     const result = await fetch(drinkEndPoint).then((response) => response.json());
     setRecomendedDrinks(result.drinks.slice(0, SIX));
     console.log(result.drinks.slice(0, SIX));
+  };
+
+  const verifyLocalStorage = async (id, type) => {
+    const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (getDoneRecipes !== null) {
+      setDoneRecipes(getDoneRecipes.some((item) => item.id === id));
+    }
+
+    const getInProgress = JSON.parse(localStorage
+      .getItem('inProgressRecipes')) || [];
+    if (getInProgress[type] !== undefined) {
+      setStartedRecipes(`${id}` in getInProgress[type] || false);
+    }
   };
 
   useEffect(() => {
@@ -184,6 +196,7 @@ function Provider({ children }) {
     setRecomendedFoods,
     recomendedDrinks,
     setRecomendedDrinks,
+    verifyLocalStorage,
   };
   return (
     <MyContext.Provider value={ context }>

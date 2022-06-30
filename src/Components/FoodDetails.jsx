@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
-
 import '../Css/FoodDetails.css';
-import '../Css/Carousel.css';
+import Carousel from './Carrousel';
 
 function FoodDetails() {
   const {
@@ -19,8 +18,12 @@ function FoodDetails() {
     setMeasure,
     measure,
     recomendedDrinks,
+    doneRecipes,
+    startedRecipes,
+    verifyLocalStorage,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
+  const { id } = useParams();
   // const [startedRecipes, setStartedRecipes] = useState(false);
   // const [doneRecipes, setDoneRecipes] = useState(false);
 
@@ -38,7 +41,6 @@ function FoodDetails() {
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setFoodDetails(result.meals[0]);
     };
-    getDetails();
     const checkIfIsFavorite = () => {
       const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
       if (getFromLocalStorag) {
@@ -47,7 +49,9 @@ function FoodDetails() {
         return isFavorite;
       }
     };
+    getDetails();
     setFavorite(checkIfIsFavorite());
+    verifyLocalStorage(id, 'meals');
   }, []);
 
   useEffect(() => {
@@ -89,20 +93,6 @@ function FoodDetails() {
     await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
     setCopied(true);
   };
-
-  useEffect(() => {
-    const verifyIfIsDone = () => {
-      const getLocalDone = getDataFromLocalStorage('doneRecipes');
-      const doneRecipesIds = [];
-      if (getLocalDone !== '') {
-        getLocalDone.map((item) => doneRecipesIds.push(item.id));
-        setDoneRecipes(doneRecipesIds.includes(foodDetails.idMeal));
-      }
-      // const recipeIsDone = getLocalDone.filter(({ id }) => id === foodDetails.idMeal);
-      // console.log(recipeIsDone);
-    };
-    verifyIfIsDone();
-  }, []);
 
   return (
     <div>
@@ -162,51 +152,17 @@ function FoodDetails() {
               frameBorder="0"
             />
           </div>
-          <div className="carousel">
-
-            {recomendedDrinks && recomendedDrinks.map((drink, index) => (
-              <button
-                type="button"
-                key={ index }
-                data-testid={ `${index}-recomendation-card` }
-                onClick={ () => history.push(`/drinks/${drink.idDrink}`) }
-              >
-
-                <img
-                  alt={ drink.strDrink }
-                  src={ drink.strDrinkThumb }
-                  width="50px"
-                />
-
-                <p>
-                  {drink.strCategory}
-                  {' '}
-                  -
-                  {' '}
-                  { drink.strAlcoholic }
-                </p>
-                <p>
-                  {' '}
-
-                </p>
-                <h3
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  { drink.strDrink }
-                </h3>
-
-              </button>
-
-            ))}
-          </div>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="start-recipe-btn"
-            onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
-          >
-            Start Recipe
-          </button>
+          <Carousel data={ recomendedDrinks } />
+          { !doneRecipes && (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+              onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
+            >
+              { startedRecipes ? 'Continue Recipe' : 'Start Recipe'}
+            </button>
+          )}
         </div>
       )}
     </div>
