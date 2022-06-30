@@ -1,22 +1,15 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderPath from './helpers/RenderPath';
+import apiResponse from './helpers/mockFetch';
 
-const drinksData = require('./mocks/drinks.json');
-
-const fetchTimes = 3;
+const fetchTimes = 4;
 const searchTopBtn = 'search-top-btn';
 const searchInputBar = 'search-input';
 
 beforeEach(() => {
-  jest.spyOn(global, 'fetch')
-    .mockImplementation(() => Promise.resolve({
-      status: 200,
-      ok: true,
-      json: () => Promise.resolve(drinksData),
-    }));
+  jest.spyOn(global, 'fetch').mockImplementation(apiResponse);
 });
-
 afterEach(() => {
   jest.clearAllMocks();
 });
