@@ -1,0 +1,33 @@
+.section {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.section button {
+  background-color: white;
+  border: solid 1px #fda509;
+  border-radius: 6px;
+  font-size: 20px;
+  padding: 10px;
+  width: 100px;
+}
+
+.sectionFilter {
+  border-radius: 8px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  width: 95%;
+}
+
+.sectionIcons {
+  width: 200%;
+}
+
+.sectionBodyIcons {
+  display: flex;
+  justify-content: space-around;
+}

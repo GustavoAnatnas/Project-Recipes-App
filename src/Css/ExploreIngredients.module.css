@@ -1,0 +1,23 @@
+.section {
+  background-color: white;
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  gap: 15px;
+  justify-content: space-evenly;
+  margin-bottom: 55px;
+  margin-top: 15px;
+}
+
+.btn {
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  flex-basis: 50px;
+}
+
+.header {
+  background-color: #fda509;
+  display: flex;
+}

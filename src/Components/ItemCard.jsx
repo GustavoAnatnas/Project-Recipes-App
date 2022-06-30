@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from '../Css/TelaPrincipal.module.css';
 import MyContext from '../Context/MyContext';
+import styles from '../Css/ExploreNationalities.module.css';
 
 function ItemCard({ data, type }) {
   const { filteredData } = useContext(MyContext);
   const recipeGap = 12;
   const filteredItems = (filteredData || data).slice(0, recipeGap);
   return (
-    <section>
+    <section className={ styles.section }>
       { filteredItems.map((item, index) => (
         <Link
+          className={ styles.btn }
           key={ item[`id${type}`] }
           to={ (
             type === 'Meal'
