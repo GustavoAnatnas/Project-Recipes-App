@@ -3,6 +3,7 @@ import Header from './Header';
 import MyContext from '../Context/MyContext';
 import DoneRecipesFilter from './DoneRecipesFilter';
 import DoneRecipesCards from './DoneRecipesCards';
+import styles from '../Css/DoneRecipes.module.css';
 
 function DoneRecipes() {
   const { setHeaderTitle, setSearchHiden } = useContext(MyContext);
@@ -40,7 +41,7 @@ function DoneRecipes() {
   }, [finishedRecipeFilter]);
 
   return (
-    <div>
+    <div className={ styles.body }>
       <Header />
       <DoneRecipesFilter setFinishedRecipeFilter={ setFinishedRecipeFilter } />
       {

@@ -1,12 +1,18 @@
 .cardImg {
-  width: 25%;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+  width: 100%;
 }
 
 .favButton {
+  background-color: white;
+  border: none;
   width: 15%;
 }
 
 .shareButton {
+  background-color: white;
+  border: none;
   width: 15%;
 }
 
