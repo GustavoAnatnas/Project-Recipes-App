@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import renderPath from './helpers/RenderPath';
 import apiResponse from './helpers/mockFetch';
 
-const fetchTimes = 4;
+const fetchTimes = 6;
 const searchTopBtn = 'search-top-btn';
 const searchInputBar = 'search-input';
 
