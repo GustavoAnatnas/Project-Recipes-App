@@ -11,7 +11,8 @@
   background-color: white;
   border: solid 2px #fda509;
   border-radius: 20px;
-  color: #fda509;
+  font-size: x-large;
+  font-weight: 700;
   flex-basis: 50px;
   font-size: 20px;
   margin-left: 10px;
