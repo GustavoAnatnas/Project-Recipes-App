@@ -4,6 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 import favIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import IngredientsProgress from './IngredientsProgress';
+import styled from '../Css/FoodsInProgress.module.css';
 
 function FoodsInProgress() {
   const history = useHistory();
@@ -84,31 +85,35 @@ function FoodsInProgress() {
   };
 
   return (
-    <div>
-      <h2>FoodsInProgress</h2>
-
+    <div className={ styled.foodInProgressPage }>
+      {/* <h2>FoodsInProgress</h2> */}
       <img
+        className={ styled.mainImage }
         src={ foodRecipes.strMealThumb }
         alt={ `${foodRecipes.strMeal}` }
         data-testid="recipe-photo"
-        width="360"
-        height="200"
+        // width="360"
+        // height="200"
       />
-      <h1 data-testid="recipe-title">{foodRecipes.strMeal}</h1>
+      <div className={ styled.headFood }>
+        <h1 data-testid="recipe-title">{foodRecipes.strMeal}</h1>
+        <button
+          className={ styled.auxBtns }
+          type="button"
+          onClick={ copyText }
+        >
+          <img src={ shareIcon } alt="Share icon" data-testid="share-btn" />
+        </button>
+        <button
+          className={ styled.auxBtns }
+          type="button"
+          onClick={ favoriteFoods }
+        >
+          <img src={ iconFav } alt="Fav icon" data-testid="favorite-btn" />
+        </button>
+        {copied && <span>Link copied!</span>}
+      </div>
       <h3 data-testid="recipe-category">{foodRecipes.strCategory}</h3>
-      <button
-        type="button"
-        onClick={ copyText }
-      >
-        <img src={ shareIcon } alt="Share icon" data-testid="share-btn" />
-      </button>
-      <button
-        type="button"
-        onClick={ favoriteFoods }
-      >
-        <img src={ iconFav } alt="Fav icon" data-testid="favorite-btn" />
-      </button>
-      {copied && <span>Link copied!</span>}
       <h2>Ingredients</h2>
       <IngredientsProgress
         data={ foodRecipes }
@@ -116,8 +121,14 @@ function FoodsInProgress() {
         type="meals"
       />
       <h2>Instructions</h2>
-      <p data-testid="instructions">{foodRecipes.strInstructions}</p>
+      <p
+        className={ styled.fdInstructions }
+        data-testid="instructions"
+      >
+        {foodRecipes.strInstructions}
+      </p>
       <button
+        className={ styled.btnFinished }
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ isDisabled }

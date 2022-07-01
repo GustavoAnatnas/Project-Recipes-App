@@ -1,0 +1,20 @@
+.asideBtnFilter {
+  align-self: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 3px 1px 1px #c4c4c4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+}
+
+.btnFilterCategory {
+  background-color: #fda509;
+  border: transparent;
+  border-radius: 8px;
+  color: white;
+  margin: 5px;
+  padding: 2px 10px;
+  width: 98px;
+}

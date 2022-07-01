@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../Context/MyContext';
+import styled from '../Css/Categories.module.css';
 
 function Categories({ data, type }) {
   const [filterStatus, setFilterStatus] = useState(false);
@@ -27,8 +28,9 @@ function Categories({ data, type }) {
   };
 
   return (
-    <aside>
+    <aside className={ styled.asideBtnFilter }>
       <button
+        className={ styled.btnFilterCategory }
         type="button"
         data-testid="All-category-filter"
         onClick={ () => clearFilters() }
@@ -37,6 +39,7 @@ function Categories({ data, type }) {
       </button>
       {filteredItems.map((item) => (
         <button
+          className={ styled.btnFilterCategory }
           type="button"
           key={ item.strCategory }
           data-testid={ [`${item.strCategory}-category-filter`] }

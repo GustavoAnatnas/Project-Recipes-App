@@ -4,6 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 import favIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import IngredientsProgress from './IngredientsProgress';
+import styled from '../Css/DrinksInProgress.module.css';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -93,30 +94,35 @@ function DrinksInProgress() {
   };
 
   return (
-    <div>
-      <h2>DrinksInProgress</h2>
+    <div className={ styled.drinkInProgressPage }>
+      {/* <h2>DrinksInProgress</h2> */}
       <img
+        className={ styled.mainImage }
         src={ drinksRecipes.strDrinkThumb }
         alt={ `${drinksRecipes.strDrink}` }
         data-testid="recipe-photo"
-        width="360"
-        height="200"
+        // width="360"
+        // height="200"
       />
-      <h1 data-testid="recipe-title">{drinksRecipes.strDrink}</h1>
-      <h3 data-testid="recipe-category">{drinksRecipes.strAlcoholic}</h3>
-      <button
-        type="button"
-        onClick={ copyText }
-      >
-        <img src={ shareIcon } alt="Share icon" data-testid="share-btn" />
-      </button>
-      <button
-        type="button"
-        onClick={ favoriteDrinks }
-      >
-        <img src={ iconFav } alt="Fav icon" data-testid="favorite-btn" />
-      </button>
+      <div className={ styled.headFood }>
+        <h1 data-testid="recipe-title">{drinksRecipes.strDrink}</h1>
+        <button
+          className={ styled.auxBtns }
+          type="button"
+          onClick={ copyText }
+        >
+          <img src={ shareIcon } alt="Share icon" data-testid="share-btn" />
+        </button>
+        <button
+          className={ styled.auxBtns }
+          type="button"
+          onClick={ favoriteDrinks }
+        >
+          <img src={ iconFav } alt="Fav icon" data-testid="favorite-btn" />
+        </button>
+      </div>
       {copied && <span>Link copied!</span>}
+      <h3 data-testid="recipe-category">{drinksRecipes.strAlcoholic}</h3>
       <h2>Ingredients</h2>
       <IngredientsProgress
         data={ drinksRecipes }
@@ -124,8 +130,14 @@ function DrinksInProgress() {
         setBtnStatus={ setIsDisable }
       />
       <h2>Instructions</h2>
-      <p data-testid="instructions">{drinksRecipes.strInstructions}</p>
+      <p
+        className={ styled.fdInstructions }
+        data-testid="instructions"
+      >
+        {drinksRecipes.strInstructions}
+      </p>
       <button
+        className={ styled.btnFinished }
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ isDisabled }

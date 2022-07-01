@@ -4,8 +4,8 @@ import noHeart from '../images/whiteHeartIcon.svg';
 import heart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
-
-import '../Css/Carousel.css';
+import styled from '../Css/DrinkDetails.module.css';
+// import '../Css/Carousel.css';
 
 function DrinkDetails() {
   const {
@@ -95,35 +95,40 @@ function DrinkDetails() {
   return (
     <div>
       {drinkDetails && (
-        <div>
-          <h1 data-testid="recipe-title">
-            {drinkDetails.strDrink}
-          </h1>
+        <div className={ styled.drinkDetailsPage }>
           <img
+            className={ styled.mainImage }
             src={ `${drinkDetails.strDrinkThumb}` }
             data-testid="recipe-photo"
             alt={ drinkDetails.strMeal }
-            width="100px"
-            height="100px"
+            // width="100px"
+            // height="100px"
           />
           {copied && <p>Link copied!</p>}
-          <button
-            onClick={ copyText }
-            data-testid="share-btn"
-            type="button"
-          >
-            <img src={ shareIcon } alt="shareIcon" />
-          </button>
-          <button
-            onClick={ favoriteDrink }
-            type="button"
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ favorite ? heart : noHeart }
-              alt="heart"
-            />
-          </button>
+          <div className={ styled.headDrink }>
+            <h1 data-testid="recipe-title">
+              {drinkDetails.strDrink}
+            </h1>
+            <button
+              className={ styled.auxBtns }
+              onClick={ copyText }
+              data-testid="share-btn"
+              type="button"
+            >
+              <img src={ shareIcon } alt="shareIcon" />
+            </button>
+            <button
+              className={ styled.auxBtns }
+              onClick={ favoriteDrink }
+              type="button"
+            >
+              <img
+                data-testid="favorite-btn"
+                src={ favorite ? heart : noHeart }
+                alt="heart"
+              />
+            </button>
+          </div>
           <h2 data-testid="recipe-category">
 
             { drinkDetails.strCategory }
@@ -133,7 +138,7 @@ function DrinkDetails() {
             {drinkDetails.strAlcoholic}
 
           </h2>
-          <ul>
+          <ul className={ styled.ulDrinkDetails }>
             {ingredients && ingredients.map((ingredient, index) => (
               <li
                 key={ index }
@@ -143,10 +148,10 @@ function DrinkDetails() {
               </li>
             ))}
           </ul>
-          <p data-testid="instructions">
+          <p className={ styled.drInstructions } data-testid="instructions">
             { drinkDetails.strInstructions }
           </p>
-          <div className="carousel">
+          <div className={ styled.carousel }>
             {recomendedFoods && recomendedFoods.map((food, index) => (
               <button
                 type="button"
@@ -173,7 +178,7 @@ function DrinkDetails() {
           { !doneRecipes && (
             <button
               type="submit"
-              className="recipe-btn"
+              className={ styled.startRecipeBtn }
               onClick={ () => history
                 .push(`/drinks/${drinkDetails.idDrink}/in-progress`) }
               data-testid="start-recipe-btn"
