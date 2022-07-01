@@ -21,7 +21,7 @@ const cardName = '0-card-name';
 const slicedFoods = foodData.meals.slice(0, numberOfCards);
 const drinksType = 'Drink';
 const foodType = 'Meal';
-const fetchCalls = 6;
+const fetchCalls = 8;
 
 describe('1-Testa a renderização da página principal de bebidas', () => {
   it('Testa se ao chamar a api são gerados 12 cards de bebidas na tela', async () => {
@@ -81,7 +81,7 @@ describe('2-Testa o funcionamento filtros por categoria da pagina principal', ()
     const ggDrink = await screen.findByTestId(cardName);
     expect(ggDrink).toBeInTheDocument();
     expect(ggDrink.innerHTML).toBe('GG');
-  });
+  }, timeOut);
 });
 describe('3-Testa a renderização da página principal de comidas', () => {
   it('Testa se ao chamar a api são gerados 12 cards de comidas na tela', async () => {
