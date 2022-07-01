@@ -48,7 +48,7 @@ function FavoriteCards({ data, setNewData }) {
           <h5 data-testid={ `${index}-horizontal-top-text` }>
             {`${nationality} - ${category}`}
           </h5>
-          <Link to={ `/${type}s/${id}` }>
+          <Link className={ styles.name } to={ `/${type}s/${id}` }>
             <h4 data-testid={ `${index}-horizontal-name` }>
               { name }
             </h4>
