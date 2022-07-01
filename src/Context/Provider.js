@@ -133,7 +133,7 @@ function Provider({ children }) {
     const getInProgress = JSON.parse(localStorage
       .getItem('inProgressRecipes')) || [];
     if (getInProgress[type] !== undefined) {
-      setStartedRecipes(`${id}` in getInProgress[type]);
+      setStartedRecipes(id in getInProgress[type]);
     }
   };
 
