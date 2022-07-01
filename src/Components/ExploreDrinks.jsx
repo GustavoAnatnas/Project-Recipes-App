@@ -21,7 +21,7 @@ function ExploreDrinks() {
       <Header />
       <div className={ styles.container }>
         <button
-          className="btn-explore-DF"
+          className={ styles.btnExploreDF }
           data-testid="explore-by-ingredient"
           onClick={ () => history.push('/explore/drinks/ingredients') }
           type="button"
