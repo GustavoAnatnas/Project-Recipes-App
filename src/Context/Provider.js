@@ -75,11 +75,7 @@ function Provider({ children }) {
     if (foodOrDrink === 'food') {
       const result = await getSearchedFoodRecipes(searchType, searchInput);
       if (result === null) {
-<<<<<<< HEAD
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
-=======
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
->>>>>>> 1748e5db0faf8d693f5c64f8546259201ee4436a
       }
       setFoodsFilteredBySearch(result);
     }
