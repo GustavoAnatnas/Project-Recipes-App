@@ -75,14 +75,14 @@ function Provider({ children }) {
     if (foodOrDrink === 'food') {
       const result = await getSearchedFoodRecipes(searchType, searchInput);
       if (result === null) {
-        global.alert('Nenhuma receita encontrada');
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setFoodsFilteredBySearch(result);
     }
     if (foodOrDrink === 'drink') {
       const result = await getSearchedDrinkRecipes(searchType, searchInput);
       if (result === null) {
-        return global.alert('Nenhuma receita encontrada');
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setDrinksFilteredBySearch(result);
     }
