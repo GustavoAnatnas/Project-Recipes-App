@@ -18,7 +18,6 @@ import DrinkDetails from './Components/DrinkDetails';
 import FoodsInProgress from './Components/FoodsInProgress';
 import DrinksInProgress from './Components/DrinksInProgress';
 import NotFound from './Components/NotFound';
-import './App.css';
 
 function App() {
   return (
