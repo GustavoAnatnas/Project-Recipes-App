@@ -1,12 +1,26 @@
 .cardImg {
-  width: 25%;
+  border-radius: 90px;
+  border-bottom-left-radius: 8px;
+  text-decoration: none;
+  width: 100%;
+}
+
+a {
+  color: black;
+  font-size: larger;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .favButton {
+  background-color: white;
+  border: none;
   width: 15%;
 }
 
 .shareButton {
+  background-color: white;
+  border: none;
   width: 15%;
 }
 

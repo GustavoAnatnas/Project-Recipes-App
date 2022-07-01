@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
+import styled from '../Css/Login.module.css';
+import foodImage from '../images/food-login.png';
 
 function Login() {
   const history = useHistory();
@@ -24,39 +26,46 @@ function Login() {
   };
 
   return (
-    <form>
-      <label htmlFor="email">
-        Email
-        <input
-          type="email"
-          name="email"
-          value={ email }
-          id="name"
-          data-testid="email-input"
-          placeholder="Email"
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-      </label>
-      <label htmlFor="Password">
-        Senha
-        <input
-          type="password"
-          name="password"
-          id="Password"
-          value={ password }
-          data-testid="password-input"
-          placeholder="Senha"
-          onChange={ ({ target }) => setPassword(target.value) }
+    <form className={ styled.form }>
+      <h1 className={ styled.title }>Login</h1>
+      <img alt="foodImage" src={ foodImage } className={ styled.img } />
+      <div className={ styled.fields }>
+        <label htmlFor="email">
+          {/* Email */}
+          <input
+            className={ styled.input }
+            type="email"
+            name="email"
+            value={ email }
+            id="name"
+            data-testid="email-input"
+            placeholder="Email"
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+        </label>
+        <label htmlFor="Password">
+          {/* Senha */}
+          <input
+            className={ styled.input }
+            type="password"
+            name="password"
+            id="Password"
+            value={ password }
+            data-testid="password-input"
+            placeholder="Senha"
+            onChange={ ({ target }) => setPassword(target.value) }
 
+          />
+        </label>
+        <input
+          className={ styled.btn }
+          type="button"
+          value="Login"
+          data-testid="login-submit-btn"
+          disabled={ disabledLoginBttn() }
+          onClick={ handleClick }
         />
-      </label>
-      <input
-        type="button"
-        value="Login"
-        data-testid="login-submit-btn"
-        disabled={ disabledLoginBttn() }
-        onClick={ handleClick }
-      />
+      </div>
     </form>
   );
 }

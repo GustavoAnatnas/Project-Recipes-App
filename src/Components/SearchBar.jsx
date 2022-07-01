@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../Context/MyContext';
+import styled from '../Css/SearchBar.module.css';
 
 function SearchBar({ foodOrDrink }) {
   // pegando informações do context
@@ -34,41 +35,44 @@ function SearchBar({ foodOrDrink }) {
   };
 
   return (
-    <div>
-      <label htmlFor="ingredientRadio">
-        <input
-          type="radio"
-          name="searchRadio"
-          id="ingredientRadio"
-          value="Ingredient"
-          onChange={ handleRadioChange }
-          data-testid="ingredient-search-radio"
-        />
-        Ingredient
-      </label>
-      <label htmlFor="nameRadio">
-        <input
-          type="radio"
-          name="searchRadio"
-          id="nameRadio"
-          value="Name"
-          onChange={ handleRadioChange }
-          data-testid="name-search-radio"
-        />
-        Name
-      </label>
-      <label htmlFor="firstLetterRadio">
-        <input
-          type="radio"
-          name="searchRadio"
-          id="firstLetterRadio"
-          value="First letter"
-          onChange={ handleRadioChange }
-          data-testid="first-letter-search-radio"
-        />
-        First Letter
-      </label>
+    <div className={ styled.search }>
+      <div>
+        <label htmlFor="ingredientRadio">
+          <input
+            type="radio"
+            name="searchRadio"
+            id="ingredientRadio"
+            value="Ingredient"
+            onChange={ handleRadioChange }
+            data-testid="ingredient-search-radio"
+          />
+          Ingredient
+        </label>
+        <label htmlFor="nameRadio">
+          <input
+            type="radio"
+            name="searchRadio"
+            id="nameRadio"
+            value="Name"
+            onChange={ handleRadioChange }
+            data-testid="name-search-radio"
+          />
+          Name
+        </label>
+        <label htmlFor="firstLetterRadio">
+          <input
+            type="radio"
+            name="searchRadio"
+            id="firstLetterRadio"
+            value="First letter"
+            onChange={ handleRadioChange }
+            data-testid="first-letter-search-radio"
+          />
+          First Letter
+        </label>
+      </div>
       <button
+        className={ styled.btnSearch }
         type="button"
         onClick={ handleSearchButton }
         data-testid="exec-search-btn"
