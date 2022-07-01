@@ -1,0 +1,46 @@
+.section {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.section button {
+  background-color: white;
+  border: solid 1px #fda509;
+  border-radius: 6px;
+  font-size: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding: 10px;
+  width: 100px;
+}
+
+.sectionFilter {
+  border: white solid 1px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 1px 1px rgb(0 0 0 / 20%);
+  display: flex;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  margin-top: 20px;
+  width: 93%;
+}
+
+.sectionIcons {
+  background-color: white;
+  width: 200%;
+}
+
+.sectionBodyIcons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.sectionFilter:hover {
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.section button:hover {
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+}

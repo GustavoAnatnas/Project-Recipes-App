@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../Css/DoneRecipes.module.css';
 
 function DoneRecipesFilter({ setFinishedRecipeFilter }) {
   const handleClick = (type) => { // type: 'food', 'drink' ou 'all'
@@ -7,7 +8,7 @@ function DoneRecipesFilter({ setFinishedRecipeFilter }) {
   };
 
   return (
-    <aside>
+    <aside className={ styles.section }>
       <button
         type="button"
         data-testid="filter-by-all-btn"

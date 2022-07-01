@@ -4,7 +4,8 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
-import '../Css/FoodDetails.css';
+// import '../Css/FoodDetails.css';
+import styled from '../Css/FoodDetails.module.css';
 
 function FoodDetails() {
   const {
@@ -22,8 +23,9 @@ function FoodDetails() {
     verifyLocalStorage,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
+  // const [doneRecipes, setDoneRecipes] = useState(false);
+  // const [startedRecipes, setStartedRecipes] = useState(false);
   const { id } = useParams();
-
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -38,8 +40,9 @@ function FoodDetails() {
       const result = await fetch(detailsEndPoint).then((response) => response.json());
       setFoodDetails(result.meals[0]);
     };
+    getDetails();
+    const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
     const checkIfIsFavorite = () => {
-      const getFromLocalStorag = getDataFromLocalStorage('favoriteRecipes');
       if (getFromLocalStorag) {
         const isFavorite = getFromLocalStorag
           .some((recipe) => recipe.id === pathname.split('/')[2]);
@@ -94,37 +97,42 @@ function FoodDetails() {
   return (
     <div>
       {foodDetails && (
-        <div>
-          <h1 data-testid="recipe-title">
-            {foodDetails.strMeal}
-          </h1>
+        <div className={ styled.foodDetailsPage }>
           <img
+            className={ styled.mainImage }
             src={ `${foodDetails.strMealThumb}` }
             data-testid="recipe-photo"
             alt={ foodDetails.strMeal }
-            width="100px"
-            height="100px"
+            // width="100px"
+            // height="100px"
           />
           {copied && <p>Link copied!</p>}
-          <button
-            onClick={ copyText }
-            data-testid="share-btn"
-            type="button"
-          >
-            <img src={ shareIcon } alt="shareIcon" />
-          </button>
-          <button
-            onClick={ favoriteFood }
-            type="button"
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ favorite ? blackHeartIcon : whiteHeartIcon }
-              alt="heart"
-            />
-          </button>
+          <div className={ styled.headFood }>
+            <h1 data-testid="recipe-title">
+              {foodDetails.strMeal}
+            </h1>
+            <button
+              className={ styled.auxBtns }
+              onClick={ copyText }
+              data-testid="share-btn"
+              type="button"
+            >
+              <img src={ shareIcon } alt="shareIcon" />
+            </button>
+            <button
+              className={ styled.auxBtns }
+              onClick={ favoriteFood }
+              type="button"
+            >
+              <img
+                data-testid="favorite-btn"
+                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                alt="heart"
+              />
+            </button>
+          </div>
           <h2 data-testid="recipe-category">{ foodDetails.strCategory }</h2>
-          <ul>
+          <ul className={ styled.ulFoodDetails }>
             {ingredients && ingredients.map((ingredient, index) => (
               <li
                 key={ index }
@@ -134,7 +142,7 @@ function FoodDetails() {
               </li>
             ))}
           </ul>
-          <p data-testid="instructions">
+          <p className={ styled.fdInstructions } data-testid="instructions">
             { foodDetails.strInstructions }
           </p>
           <h2>Video</h2>
@@ -149,7 +157,7 @@ function FoodDetails() {
               frameBorder="0"
             />
           </div>
-          <div className="carousel">
+          <div className={ styled.carousel }>
             {recomendedDrinks && recomendedDrinks.map((drink, index) => (
               <button
                 type="button"
@@ -188,7 +196,7 @@ function FoodDetails() {
           { !doneRecipes && (
             <button
               type="button"
-              className="recipe-btn"
+              className={ styled.startRecipeBtn }
               onClick={ () => history.push(`/foods/${foodDetails.idMeal}/in-progress`) }
               data-testid="start-recipe-btn"
             >

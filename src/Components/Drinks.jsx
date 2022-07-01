@@ -6,6 +6,7 @@ import ItemCard from './ItemCard';
 import FooterMenu from './FooterMenu';
 import Header from './Header';
 import SearchBar from './SearchBar';
+import styled from '../Css/Foods.module.css';
 
 function Drinks() {
   const { drinksData, drinkCategories,
@@ -31,7 +32,7 @@ function Drinks() {
     drinksFilteredBySearch && drinksFilteredBySearch.length === 1
       ? <Redirect to={ `/drinks/${drinksFilteredBySearch[0].idDrink}` } />
       : (
-        <>
+        <div className={ styled.drinkScreen }>
           <Header />
           <SearchBar foodOrDrink="drink" />
           <Categories data={ drinkCategories } type="Drink" />
@@ -40,7 +41,7 @@ function Drinks() {
             type="Drink"
           />
           <FooterMenu />
-        </>
+        </div>
       )
   );
 }

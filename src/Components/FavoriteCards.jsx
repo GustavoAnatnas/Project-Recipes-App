@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from '../Css/FavoriteCards.module.css';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import styles from '../Css/FavoriteRecipes.module.css';
 
 const copy = require('clipboard-copy');
 
@@ -30,48 +31,54 @@ function FavoriteCards({ data, setNewData }) {
   const renderFoodCard = (item, index) => {
     const { image, name, category, nationality, id, type } = item;
     return (
-      <div key={ name }>
-        <Link to={ `/${type}s/${id}` }>
-          <img
-            src={ image }
-            alt={ name }
-            className={ styled.cardImg }
-            data-testid={ `${index}-horizontal-image` }
-          />
-        </Link>
-        <div>
-          <h6 data-testid={ `${index}-horizontal-top-text` }>
-            {`${nationality} - ${category}`}
-          </h6>
+      <div className={ styles.sectionFilter }>
+        <div
+          key={ name }
+        >
           <Link to={ `/${type}s/${id}` }>
-            <h5 data-testid={ `${index}-horizontal-name` }>
-              { name }
-            </h5>
+            <img
+              src={ image }
+              alt={ name }
+              className={ styled.cardImg }
+              data-testid={ `${index}-horizontal-image` }
+            />
           </Link>
+        </div>
+        <div className={ styles.sectionIcons }>
+          <h5 data-testid={ `${index}-horizontal-top-text` }>
+            {`${nationality} - ${category}`}
+          </h5>
+          <Link className={ styles.name } to={ `/${type}s/${id}` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>
+              { name }
+            </h4>
+          </Link>
+          <div className={ styles.sectionBodyIcons }>
+            <button
+              type="button"
+              className={ styled.shareButton }
+              onClick={ () => onShareButtonClick(id, type, index) }
+            >
+              <img
+                src={ shareIcon }
+                alt="share button"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
+            </button>
 
-          <button
-            type="button"
-            className={ styled.shareButton }
-            onClick={ () => onShareButtonClick(id, type, index) }
-          >
-            <img
-              src={ shareIcon }
-              alt="share button"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
+            <button
+              type="button"
+              className={ styled.favButton }
+              onClick={ () => removeFavorite(id) }
+            >
+              <img
+                src={ blackHeartIcon }
+                alt="favorite button"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              />
+            </button>
+          </div>
 
-          <button
-            type="button"
-            className={ styled.favButton }
-            onClick={ () => removeFavorite(id) }
-          >
-            <img
-              src={ blackHeartIcon }
-              alt="favorite button"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-            />
-          </button>
           <h6
             id={ `${index}-link-copied` }
             className={ styled.copiedLink }
@@ -86,46 +93,50 @@ function FavoriteCards({ data, setNewData }) {
   const renderDrinkCard = (item, index) => {
     const { image, name, alcoholicOrNot, id, type } = item;
     return (
-      <div key={ name }>
-        <Link to={ `/${type}s/${id}` }>
-          <img
-            src={ image }
-            alt={ name }
-            className={ styled.cardImg }
-            data-testid={ `${index}-horizontal-image` }
-          />
-        </Link>
-        <div>
-          <h6 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h6>
+      <div className={ styles.sectionFilter }>
+        <div key={ name }>
           <Link to={ `/${type}s/${id}` }>
-            <h5 data-testid={ `${index}-horizontal-name` }>
-              { name }
-            </h5>
+            <img
+              src={ image }
+              alt={ name }
+              className={ styled.cardImg }
+              data-testid={ `${index}-horizontal-image` }
+            />
           </Link>
+        </div>
+        <div className={ styles.sectionIcons }>
+          <h5 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h5>
+          <Link to={ `/${type}s/${id}` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>
+              { name }
+            </h4>
+          </Link>
+          <div className={ styles.sectionBodyIcons }>
+            <button
+              type="button"
+              className={ styled.shareButton }
+              onClick={ () => onShareButtonClick(id, type, index) }
+            >
+              <img
+                src={ shareIcon }
+                alt="share button"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
+            </button>
 
-          <button
-            type="button"
-            className={ styled.shareButton }
-            onClick={ () => onShareButtonClick(id, type, index) }
-          >
-            <img
-              src={ shareIcon }
-              alt="share button"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
+            <button
+              type="button"
+              className={ styled.favButton }
+              onClick={ () => removeFavorite(id) }
+            >
+              <img
+                src={ blackHeartIcon }
+                alt="favorite button"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              />
+            </button>
+          </div>
 
-          <button
-            type="button"
-            className={ styled.favButton }
-            onClick={ () => removeFavorite(id) }
-          >
-            <img
-              src={ blackHeartIcon }
-              alt="favorite button"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-            />
-          </button>
           <h6
             id={ `${index}-link-copied` }
             className={ styled.copiedLink }

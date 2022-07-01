@@ -1,0 +1,22 @@
+body {
+  background-color: #f5f5f6;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 530px;
+  justify-content: space-around;
+}
+
+.btnExplore {
+  background-color: white;
+  border: 2px solid #fda509;
+  border-radius: 20px;
+  font-size: x-large;
+  font-weight: 700;
+  height: 100px;
+  padding: 20px;
+  width: 200px;
+}
