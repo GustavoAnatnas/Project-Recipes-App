@@ -74,10 +74,16 @@ function Provider({ children }) {
   const filterSearchedRecipes = async (foodOrDrink, searchType, searchInput) => {
     if (foodOrDrink === 'food') {
       const result = await getSearchedFoodRecipes(searchType, searchInput);
+      if (result === null) {
+        global.alert('Nenhuma receita encontrada');
+      }
       setFoodsFilteredBySearch(result);
     }
     if (foodOrDrink === 'drink') {
       const result = await getSearchedDrinkRecipes(searchType, searchInput);
+      if (result === null) {
+        return global.alert('Nenhuma receita encontrada');
+      }
       setDrinksFilteredBySearch(result);
     }
   };
