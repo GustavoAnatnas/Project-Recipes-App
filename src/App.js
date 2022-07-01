@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Provider from './Context/Provider';
 import Login from './Components/Login';
@@ -19,6 +18,7 @@ import DrinkDetails from './Components/DrinkDetails';
 import FoodsInProgress from './Components/FoodsInProgress';
 import DrinksInProgress from './Components/DrinksInProgress';
 import NotFound from './Components/NotFound';
+import './App.css';
 
 function App() {
   return (
