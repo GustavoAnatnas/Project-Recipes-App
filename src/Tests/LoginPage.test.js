@@ -8,8 +8,8 @@ const correctPass = '1234567';
 describe('1-Testa se a tela é renderizada corretamente com seus elementos', () => {
   it('Renderiza os inputs de Email e Senha', () => {
     renderPath('/');
-    const emailInput = screen.getByLabelText(/email/i);
-    const passInput = screen.getByLabelText(/senha/i);
+    const emailInput = screen.getByPlaceholderText(/email/i);
+    const passInput = screen.getByPlaceholderText(/senha/i);
     expect(emailInput).toBeInTheDocument();
     expect(passInput).toBeInTheDocument();
   });
@@ -21,8 +21,8 @@ describe('1-Testa se a tela é renderizada corretamente com seus elementos', () 
   });
   it('Testa se ao digitar as informações corretas o botão de login é habilitado', () => {
     renderPath('/');
-    const emailInput = screen.getByLabelText(/email/i);
-    const passInput = screen.getByLabelText(/senha/i);
+    const emailInput = screen.getByPlaceholderText(/email/i);
+    const passInput = screen.getByPlaceholderText(/senha/i);
     const loginButton = screen.getByRole('button', { name: /login/i });
     userEvent.type(emailInput, correctEmail);
     expect(loginButton).toBeDisabled();
@@ -38,8 +38,8 @@ describe('2-Testa o funcionamento do localStorage', () => {
     const setItem = jest.spyOn(Storage.prototype, 'setItem');
     const numberOfCalls = 3;
     renderPath('/');
-    const emailInput = screen.getByLabelText(/email/i);
-    const passInput = screen.getByLabelText(/senha/i);
+    const emailInput = screen.getByPlaceholderText(/email/i);
+    const passInput = screen.getByPlaceholderText(/senha/i);
     const loginButton = screen.getByRole('button', { name: /login/i });
     userEvent.type(emailInput, correctEmail);
     userEvent.type(passInput, correctPass);

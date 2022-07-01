@@ -5,7 +5,6 @@ import heart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
 import styled from '../Css/DrinkDetails.module.css';
-// import '../Css/Carousel.css';
 
 function DrinkDetails() {
   const {
@@ -101,8 +100,6 @@ function DrinkDetails() {
             src={ `${drinkDetails.strDrinkThumb}` }
             data-testid="recipe-photo"
             alt={ drinkDetails.strMeal }
-            // width="100px"
-            // height="100px"
           />
           {copied && <p>Link copied!</p>}
           <div className={ styled.headDrink }>

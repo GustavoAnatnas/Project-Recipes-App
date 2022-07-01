@@ -14,6 +14,8 @@ const ingFoodSearch = require('../mocks/foodSearchIng.json');
 const nameFoodSearch = require('../mocks/foodSearchName.json');
 const foodFLSearch = require('../mocks/foodSearchFirstLetter.json');
 const foodCategoryFilter = require('../mocks/foodCategoryFilter.json');
+const foodsNationalitiesData = require('../mocks/nationalities.json');
+const japaneseFoodsData = require('../mocks/japaneseFoods.json');
 
 const badResult = { meals: [{}], drinks: [{}] };
 
@@ -33,10 +35,18 @@ const foodFilterUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Chic
 const foodSearchIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=beef';
 const foodSearchName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=pork';
 const foodSearchFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=h';
+const foodNationalitiesUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const japaneseFoodsUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese';
 
 function moreApiResponses(url) {
   if (url === foodFilterUrl) {
     return Promise.resolve({ json: () => Promise.resolve(foodCategoryFilter) });
+  }
+  if (url === foodNationalitiesUrl) {
+    return Promise.resolve({ json: () => Promise.resolve(foodsNationalitiesData) });
+  }
+  if (url === japaneseFoodsUrl) {
+    return Promise.resolve({ json: () => Promise.resolve(japaneseFoodsData) });
   }
   return Promise.resolve({ json: () => Promise.resolve(badResult) });
 }

@@ -35,7 +35,6 @@ function NationalitiesFoods() {
         data-testid="explore-by-nationality-dropdown"
       >
         <option
-          onChange={ ({ target }) => filterByNationality(target.value) }
           data-testid="All-option"
         >
           All
