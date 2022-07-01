@@ -1,4 +1,4 @@
-.carousel {
+/* .carousel {
   background-color: aqua;
   display: flex;
   flex-flow: row nowrap;
@@ -8,7 +8,7 @@
 .carousel > button {
   max-height: 150px;
   min-width: 200px;
-}
+} */
 
 /* .carousel > .carousel-content > .carousel-item {
   flex: 0 0 auto;

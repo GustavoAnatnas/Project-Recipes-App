@@ -1,0 +1,11 @@
+.checkElements {
+  align-self: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 3px 1px 1px #c4c4c4;
+  color: #302e2e;
+  margin-top: 3px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  width: 80%;
+}

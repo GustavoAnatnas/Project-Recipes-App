@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import styles from '../Css/IngredientChecked.module.css';
+import styled from '../Css/IngredientsProgress.module.css';
 
 function IngredientsProgress({ data, setBtnStatus, type }) {
   const { id } = useParams();
@@ -56,7 +57,7 @@ function IngredientsProgress({ data, setBtnStatus, type }) {
     && value && value !== ' ')));
 
   return (
-    <div>
+    <div className={ styled.checkElements }>
       {measures.map((measure, index) => (
         <div
           key={ `${ingredients[index]} - ${index}` }
