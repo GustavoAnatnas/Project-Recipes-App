@@ -8,6 +8,7 @@ const nationalities = require('./mocks/nationalities.json');
 const path = '/explore/foods/nationalities';
 const dropdownId = 'explore-by-nationality-dropdown';
 const numberOfCards = 12;
+const timeOut = 12000;
 
 beforeEach(() => {
   jest.spyOn(global, 'fetch').mockImplementation(apiResponse);
@@ -61,5 +62,5 @@ describe('1-Testa a página de explore por nacionalidades', () => {
     expect(corba).not.toBeInTheDocument();
     userEvent.selectOptions(dropdown, 'All');
     expect(teriyaki).not.toBeInTheDocument();
-  });
+  }, timeOut);
 });

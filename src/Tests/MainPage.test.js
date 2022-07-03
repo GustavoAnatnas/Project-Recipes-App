@@ -14,7 +14,7 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-const timeOut = 6000;
+const timeOut = 15000;
 const numberOfCards = 12;
 const slicedDrinks = drinksData.drinks.slice(0, numberOfCards);
 const cardName = '0-card-name';

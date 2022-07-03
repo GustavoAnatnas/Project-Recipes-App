@@ -71,19 +71,19 @@ function DrinkDetails() {
   }, [drinkDetails, setIngredients, setMeasure]);
 
   const favoriteDrink = () => {
-    const obj = [
-      {
-        id: drinkDetails.idDrink,
-        type: 'drink',
-        nationality: '',
-        category: drinkDetails.strCategory,
-        alcoholicOrNot: drinkDetails.strAlcoholic,
-        name: drinkDetails.strDrink,
-        image: drinkDetails.strDrinkThumb,
-      },
-    ];
+    const savedFoods = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const obj = {
+      id: drinkDetails.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: drinkDetails.strCategory,
+      alcoholicOrNot: drinkDetails.strAlcoholic,
+      name: drinkDetails.strDrink,
+      image: drinkDetails.strDrinkThumb,
+    };
     setFavorite(!favorite);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(obj));
+    savedFoods.push(obj);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(savedFoods));
   };
 
   const copyText = async () => {
