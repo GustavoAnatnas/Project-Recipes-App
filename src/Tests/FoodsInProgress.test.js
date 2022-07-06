@@ -13,21 +13,21 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-const pagePath = '/drinks/15997/in-progress';
-const DRINK_INGREDIENTS = ['Galliano', '2 1/2 shots'];
+const pagePath = '/foods/52768/in-progress';
+const MEAL_INGREDIENTS = ['digestive biscuits', '175g/6oz'];
 
-describe('1-Testa a página de drinksInProgress', () => {
+describe('1-Testa a página de FoodsInProgress', () => {
   test('Testa se ao entrar na página a mesma faz a requisição a Api', () => {
     renderPath(pagePath);
-    expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15997');
+    expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52768');
   });
   test('Testa se os items são gerados corretamente', async () => {
     renderPath(pagePath);
-    const [ingredient, measure] = DRINK_INGREDIENTS;
+    const [ingredient, measure] = MEAL_INGREDIENTS;
 
     const cardImg = await screen.findByTestId('recipe-photo');
     const recipeTitle = screen
-      .getByRole('heading', { level: 2, name: 'GG' });
+      .getByRole('heading', { level: 2, name: 'Apple Frangipan Tart' });
     const shareButton = screen.getByTestId('share-btn');
     const favoriteButton = screen.getByTestId('favorite-btn');
     const ingredientsSection = screen
@@ -35,7 +35,8 @@ describe('1-Testa a página de drinksInProgress', () => {
     const instructionsSection = screen
       .getByRole('heading', { level: 3, name: 'Instructions' });
     const ingredients = screen.getByText(`${ingredient} - ${measure}`);
-    const instructionsText = screen.getByText(/you now have a your very own gg/i);
+    const instructionsText = screen
+      .getByText(/Bake for 20-25 minutes until golden-brown/i);
     const finishRecipeButton = screen.getByRole('button', { name: /Finish Recipe/i });
 
     expect(cardImg).toBeInTheDocument();
@@ -57,31 +58,29 @@ describe('1-Testa a página de drinksInProgress', () => {
     renderPath(pagePath);
     userEvent.click(await screen.findByTestId('share-btn'));
     expect(window.navigator.clipboard.writeText)
-      .toHaveBeenCalledWith('http://localhost:3000/drinks/15997');
+      .toHaveBeenCalledWith('http://localhost:3000/foods/52768');
     jest.resetAllMocks();
   });
 });
 describe('2-Testa o funcionamento dos botões de favorito e finalizar receita', () => {
   test('Testa o funcionamento do botão de favoritar receita',
     async () => {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([
-        {
-          id: '15997',
-          type: 'drink',
-          nationality: '',
-          category: 'Ordinary Drink',
-          alcoholicOrNot: 'Optional alcohol',
-          name: 'GG',
-          image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
-        },
-      ]));
+      localStorage.setItem('favoriteRecipes', JSON.stringify([{
+        id: '52768',
+        type: 'food',
+        nationality: 'British',
+        category: 'Dessert',
+        alcoholicOrNot: '',
+        name: 'Apple Frangipan Tart',
+        image: 'https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg',
+      }]));
       const setItem = jest.spyOn(Storage.prototype, 'setItem');
       renderPath(pagePath);
       const favoriteButton = await screen.findByTestId('favorite-btn');
-      expect(favoriteButton.src).toBe(`http://localhost/drinks/15997/${blackHeartIcon}`);
+      expect(favoriteButton.src).toBe(`http://localhost/foods/52768/${blackHeartIcon}`);
       userEvent.click(favoriteButton);
       expect(setItem).toHaveBeenCalled();
-      expect(favoriteButton.src).toBe(`http://localhost/drinks/15997/${whiteHeartIcon}`);
+      expect(favoriteButton.src).toBe(`http://localhost/foods/52768/${whiteHeartIcon}`);
       setItem.mockRestore();
       localStorage.clear();
     });

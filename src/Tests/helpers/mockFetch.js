@@ -16,6 +16,7 @@ const foodFLSearch = require('../mocks/foodSearchFirstLetter.json');
 const foodCategoryFilter = require('../mocks/foodCategoryFilter.json');
 const foodsNationalitiesData = require('../mocks/nationalities.json');
 const japaneseFoodsData = require('../mocks/japaneseFoods.json');
+const foodDetailData = require('../mocks/foodDetail.json');
 
 const badResult = { meals: [{}], drinks: [{}] };
 
@@ -37,6 +38,7 @@ const foodSearchName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=por
 const foodSearchFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=h';
 const foodNationalitiesUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const japaneseFoodsUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese';
+const foodDetailUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52768';
 
 function moreApiResponses(url) {
   if (url === foodFilterUrl) {
@@ -47,6 +49,9 @@ function moreApiResponses(url) {
   }
   if (url === japaneseFoodsUrl) {
     return Promise.resolve({ json: () => Promise.resolve(japaneseFoodsData) });
+  }
+  if (url === foodDetailUrl) {
+    return Promise.resolve({ json: () => Promise.resolve(foodDetailData) });
   }
   return Promise.resolve({ json: () => Promise.resolve(badResult) });
 }
