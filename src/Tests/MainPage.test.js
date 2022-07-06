@@ -14,6 +14,7 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
+const timeOut = 7000;
 const numberOfCards = 12;
 const slicedDrinks = drinksData.drinks.slice(0, numberOfCards);
 const cardName = '0-card-name';
@@ -66,7 +67,7 @@ describe('2-Testa o funcionamento filtros por categoria da pagina principal', ()
     const ggDrink = await screen.findByTestId(cardName);
     expect(ggDrink).toBeInTheDocument();
     expect(ggDrink.innerHTML).toBe('GG');
-  });
+  }, timeOut);
   it('Testa se os filtros por categorias funcionam como um toggle', async () => {
     renderPath('/drinks');
     const categoryBtn = await screen.findByRole('button', { name: 'Cocktail' });

@@ -8,7 +8,6 @@ const nationalities = require('./mocks/nationalities.json');
 const path = '/explore/foods/nationalities';
 const dropdownId = 'explore-by-nationality-dropdown';
 const numberOfCards = 12;
-const timeOut = 12000;
 
 beforeEach(() => {
   jest.spyOn(global, 'fetch').mockImplementation(apiResponse);
@@ -35,7 +34,7 @@ describe('1-Testa a página de explore por nacionalidades', () => {
     renderPath(path);
     const dropdown = await screen.findByTestId(dropdownId);
     expect(dropdown.options[0].value).toBe('All');
-    const nationalitiesOptions = await screen.findAllByTestId(/-option/i);
+    const nationalitiesOptions = screen.getAllByTestId(/-option/i);
     nationalitiesOptions.shift(0);
     (nationalities.meals).forEach((option, index) => {
       expect(nationalitiesOptions[index].innerHTML).toBe(option.strArea);
@@ -53,7 +52,7 @@ describe('1-Testa a página de explore por nacionalidades', () => {
   test('Testa se ao clicar na opção de All voltam as comidas anteriores', async () => {
     renderPath(path);
     const dropdown = await screen.findByTestId(dropdownId);
-    const corba = await screen.findByRole('heading', { name: /corba/i, level: 4 });
+    const corba = screen.getByRole('heading', { name: /corba/i, level: 4 });
     expect(corba).toBeInTheDocument();
     userEvent.selectOptions(dropdown, 'Japanese');
     const teriyaki = await screen
@@ -62,5 +61,5 @@ describe('1-Testa a página de explore por nacionalidades', () => {
     expect(corba).not.toBeInTheDocument();
     userEvent.selectOptions(dropdown, 'All');
     expect(teriyaki).not.toBeInTheDocument();
-  }, timeOut);
+  });
 });
