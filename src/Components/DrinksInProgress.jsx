@@ -121,7 +121,7 @@ function DrinksInProgress() {
           <img src={ iconFav } alt="Fav icon" data-testid="favorite-btn" />
         </button>
       </div>
-      {copied && <span>Link copied!</span>}
+      {copied && <h4>Link copied!</h4>}
       <h3 data-testid="recipe-category">{drinksRecipes.strAlcoholic}</h3>
       <h2>Ingredients</h2>
       <IngredientsProgress

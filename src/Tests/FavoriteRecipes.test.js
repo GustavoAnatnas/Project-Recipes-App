@@ -122,5 +122,3 @@ describe('3-Testa os botões de share e favoritar dos cards gerados', () => {
     jest.resetAllMocks();
   });
 });
-
-// testar link copied, função de favoritar, função de share, dos foods e drinks
