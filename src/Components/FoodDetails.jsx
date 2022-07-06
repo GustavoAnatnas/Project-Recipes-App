@@ -4,7 +4,6 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../Context/MyContext';
-// import '../Css/FoodDetails.css';
 import styled from '../Css/FoodDetails.module.css';
 
 function FoodDetails() {
@@ -23,8 +22,6 @@ function FoodDetails() {
     verifyLocalStorage,
   } = useContext(MyContext);
   const [favorite, setFavorite] = useState(false);
-  // const [doneRecipes, setDoneRecipes] = useState(false);
-  // const [startedRecipes, setStartedRecipes] = useState(false);
   const { id } = useParams();
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -74,19 +71,19 @@ function FoodDetails() {
   }, [foodDetails, setIngredients, setMeasure]);
 
   const favoriteFood = () => {
-    const obj = [
-      {
-        id: foodDetails.idMeal,
-        type: 'food',
-        nationality: foodDetails.strArea,
-        category: foodDetails.strCategory,
-        alcoholicOrNot: '',
-        name: foodDetails.strMeal,
-        image: foodDetails.strMealThumb,
-      },
-    ];
+    const savedFoods = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const obj = {
+      id: foodDetails.idMeal,
+      type: 'food',
+      nationality: foodDetails.strArea,
+      category: foodDetails.strCategory,
+      alcoholicOrNot: '',
+      name: foodDetails.strMeal,
+      image: foodDetails.strMealThumb,
+    };
     setFavorite(!favorite);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(obj));
+    savedFoods.push(obj);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(savedFoods));
   };
 
   const copyText = async () => {

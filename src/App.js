@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Provider from './Context/Provider';
 import Login from './Components/Login';
 import Profile from './Components/Profile';
 import DoneRecipes from './Components/DoneRecipes';
@@ -18,6 +17,7 @@ import DrinkDetails from './Components/DrinkDetails';
 import FoodsInProgress from './Components/FoodsInProgress';
 import DrinksInProgress from './Components/DrinksInProgress';
 import NotFound from './Components/NotFound';
+import Provider from './Context/Provider';
 
 function App() {
   return (

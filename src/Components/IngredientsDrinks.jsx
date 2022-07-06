@@ -16,7 +16,6 @@ function IngredientsDrinks() {
   }, [setHeaderTitle, setSearchHiden]);
 
   const handleclick = (ingredient) => {
-    console.log(ingredient);
     getDrinkIngredientsRecipes(ingredient);
     history.push('/drinks');
   };

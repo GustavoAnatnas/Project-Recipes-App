@@ -15,7 +15,7 @@ function IngredientsProgress({ data, setBtnStatus, type }) {
 && value)));
 
   useEffect(() => {
-    if (ingredients.length === ingredientChecked.length) {
+    if (ingredientChecked.length === ingredients.length) {
       return setBtnStatus(false);
     }
     setBtnStatus(true);
@@ -58,24 +58,24 @@ function IngredientsProgress({ data, setBtnStatus, type }) {
 
   return (
     <div className={ styled.checkElements }>
-      {measures.map((measure, index) => (
+      {ingredients.map((item, index) => (
         <div
-          key={ `${ingredients[index]} - ${index}` }
+          key={ `${item} - ${index}` }
         >
           <label
-            htmlFor={ ingredients[index] }
+            htmlFor={ item }
             data-testid={ `${index}-ingredient-step` }
-            className={ ingredientChecked.includes(ingredients[index]) === true
+            className={ ingredientChecked.includes(item) === true
               && styles.ingredients }
           >
             <input
               type="checkbox"
-              id={ ingredients[index] }
-              checked={ ingredientChecked.includes(ingredients[index]) }
-              onChange={ () => localChange(ingredients[index]) }
-              onClick={ () => saveIngredients(ingredients[index]) }
+              id={ item }
+              checked={ ingredientChecked.includes(item) }
+              onChange={ () => localChange(item) }
+              onClick={ () => saveIngredients(item) }
             />
-            {`${ingredients[index]} - ${measure}`}
+            {`${item} ${(measures[index] === undefined ? '' : `- ${measures[index]}`)}`}
           </label>
         </div>
       ))}

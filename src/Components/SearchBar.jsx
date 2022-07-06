@@ -20,7 +20,7 @@ function SearchBar({ foodOrDrink }) {
 
   const handleSearchButton = () => { // ao clicar no botão de pesquisar...
     if (searchRad === 'First letter' && searchValue.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
+      return global.alert('Your search must have only 1 (one) character');
     }
     if (searchRad === 'Ingredient') {
       filterSearchedRecipes(foodOrDrink, 'filter.php?i=', searchValue);

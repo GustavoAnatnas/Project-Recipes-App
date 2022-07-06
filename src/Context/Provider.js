@@ -132,7 +132,7 @@ function Provider({ children }) {
 
   const verifyLocalStorage = async (id, type) => {
     const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    if (getDoneRecipes !== null) {
+    if (getDoneRecipes[0] !== undefined) {
       setDoneRecipes(getDoneRecipes.some((item) => item.id === id));
     }
 
