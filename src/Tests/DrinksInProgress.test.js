@@ -111,7 +111,7 @@ describe('2-Testa o funcionamento dos botões de favorito e finalizar receita', 
   });
 });
 describe('3-Testa o funcionamento dos checkboxes', () => {
-  test('Testa se ao marcar e desmarcar ele é salvo e removido do localStorage', 
+  test('Testa se ao marcar e desmarcar ele é salvo e removido do localStorage',
     async () => {
       const setItem = jest.spyOn(Storage.prototype, 'setItem');
       renderPath(pagePath);
