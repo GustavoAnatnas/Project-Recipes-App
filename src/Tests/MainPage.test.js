@@ -14,7 +14,6 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-const timeOut = 15000;
 const numberOfCards = 12;
 const slicedDrinks = drinksData.drinks.slice(0, numberOfCards);
 const cardName = '0-card-name';
@@ -34,8 +33,8 @@ describe('1-Testa a renderização da página principal de bebidas', () => {
   it('Verifica se os 12 cards são gerados corretamente', async () => {
     renderPath('/drinks');
     const images = await screen.findAllByTestId(/card-img/i);
-    const cards = await screen.findAllByTestId(/recipe-card/i);
-    const names = await screen.findAllByTestId(/-card-name/i);
+    const cards = screen.getAllByTestId(/recipe-card/i);
+    const names = screen.getAllByTestId(/-card-name/i);
     slicedDrinks.forEach((item, index) => {
       expect(images[index].src).toBe(item[`str${drinksType}Thumb`]);
       expect(cards).toHaveLength(numberOfCards);
@@ -55,8 +54,8 @@ describe('2-Testa o funcionamento filtros por categoria da pagina principal', ()
   it('Testa se o botão de filtro retorna os items corretos', async () => {
     renderPath('/drinks');
     const categoryBtn = await screen.findByRole('button', { name: 'Cocktail' });
-    const allBtn = await screen.findByRole('button', { name: 'All' });
-    const firstDrink = await screen.findByRole('heading', { name: /gg/i, level: 4 });
+    const allBtn = screen.getByRole('button', { name: 'All' });
+    const firstDrink = screen.getByRole('heading', { name: /gg/i, level: 4 });
     expect(firstDrink).toBeInTheDocument();
     userEvent.click(categoryBtn);
     const filtredDrink = await screen
@@ -67,11 +66,11 @@ describe('2-Testa o funcionamento filtros por categoria da pagina principal', ()
     const ggDrink = await screen.findByTestId(cardName);
     expect(ggDrink).toBeInTheDocument();
     expect(ggDrink.innerHTML).toBe('GG');
-  }, timeOut);
+  });
   it('Testa se os filtros por categorias funcionam como um toggle', async () => {
     renderPath('/drinks');
     const categoryBtn = await screen.findByRole('button', { name: 'Cocktail' });
-    const firstDrink = await screen.findByRole('heading', { name: /gg/i, level: 4 });
+    const firstDrink = screen.getByRole('heading', { name: /gg/i, level: 4 });
     expect(firstDrink).toBeInTheDocument();
     userEvent.click(categoryBtn);
     const filtredDrink = await screen
@@ -81,7 +80,7 @@ describe('2-Testa o funcionamento filtros por categoria da pagina principal', ()
     const ggDrink = await screen.findByTestId(cardName);
     expect(ggDrink).toBeInTheDocument();
     expect(ggDrink.innerHTML).toBe('GG');
-  }, timeOut);
+  });
 });
 describe('3-Testa a renderização da página principal de comidas', () => {
   it('Testa se ao chamar a api são gerados 12 cards de comidas na tela', async () => {
@@ -90,12 +89,12 @@ describe('3-Testa a renderização da página principal de comidas', () => {
     expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     expect(fetch).toHaveBeenCalledTimes(fetchCalls);
     expect(cards).toHaveLength(numberOfCards);
-  }, timeOut);
+  });
   it('Verifica se os 12 cards são gerados corretamente', async () => {
     renderPath('/foods');
     const images = await screen.findAllByTestId(/card-img/i);
-    const cards = await screen.findAllByTestId(/recipe-card/i);
-    const names = await screen.findAllByTestId(/-card-name/i);
+    const cards = screen.getAllByTestId(/recipe-card/i);
+    const names = screen.getAllByTestId(/-card-name/i);
     slicedFoods.forEach((item, index) => {
       expect(images[index].src).toBe(item[`str${foodType}Thumb`]);
       expect(cards).toHaveLength(numberOfCards);
@@ -115,8 +114,8 @@ describe('4-Testa o funcionamento filtros por categoria da pagina principal', ()
   it('Testa se o botão de filtro retorna os items corretos', async () => {
     renderPath('/foods');
     const categoryBtn = await screen.findByRole('button', { name: 'Chicken' });
-    const allBtn = await screen.findByRole('button', { name: 'All' });
-    const firstFood = await screen.findByRole('heading', { name: /corba/i, level: 4 });
+    const allBtn = screen.getByRole('button', { name: 'All' });
+    const firstFood = screen.getByRole('heading', { name: /corba/i, level: 4 });
     expect(firstFood).toBeInTheDocument();
     userEvent.click(categoryBtn);
     const filtredFood = await screen
@@ -127,11 +126,11 @@ describe('4-Testa o funcionamento filtros por categoria da pagina principal', ()
     const corbaFood = await screen.findByTestId(cardName);
     expect(corbaFood).toBeInTheDocument();
     expect(corbaFood.innerHTML).toBe('Corba');
-  }, timeOut);
+  });
   it('Testa se os filtros por categorias funcionam como um toggle', async () => {
     renderPath('/foods');
     const categoryBtn = await screen.findByRole('button', { name: 'Chicken' });
-    const firstFood = await screen.findByRole('heading', { name: /corba/i, level: 4 });
+    const firstFood = screen.getByRole('heading', { name: /corba/i, level: 4 });
     expect(firstFood).toBeInTheDocument();
     userEvent.click(categoryBtn);
     const filteredFood = await screen
@@ -141,5 +140,5 @@ describe('4-Testa o funcionamento filtros por categoria da pagina principal', ()
     const corbaFood = await screen.findByTestId(cardName);
     expect(corbaFood).toBeInTheDocument();
     expect(corbaFood.innerHTML).toBe('Corba');
-  }, timeOut);
+  });
 });
